@@ -12,4 +12,8 @@ export class MainFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  test(x: any){
+    console.log(x)
+  }
+
 }

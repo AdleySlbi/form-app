@@ -1,6 +1,30 @@
 .one-question {
-    width: 100%;
+    width: 96%;
+    margin: 0 2%;
     background-color: #eaeaea;
     border: 1px solid #0000;
     border-radius: 5px;
+    .title-q {
+        margin: 10px 0;
+    }
+    .one-answer {
+        .radio {
+            background-color: #969696;
+            border: 1px solid #fff;
+            width: 96%;
+            height: 40vh;
+            margin: 2vh 2%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        input[type=radio]{
+            display:none
+        }
+        // Design of the selected answer
+        input[type=radio]:checked + .radio{
+            border-color: #000;
+        }
+    }
 }
