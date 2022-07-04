@@ -1,19 +1,21 @@
 .one-question {
     width: 96%;
     margin: 0 2%;
-    background-color: #eaeaea;
+    background-color: #fff;
     border: 1px solid #0000;
     border-radius: 5px;
     .title-q {
         margin: 10px;
+        color: #4050b5;
     }
     .answer-w {
         display: flex;
         flex-direction: column;
         .one-answer {
             .radio {
-                background-color: #969696;
-                border: 1px solid #fff;
+                background-color: #eaeaea;
+                border: 3px solid #fff;
+                border-radius: 5px;
                 width: 96%;
                 height: 40vh;
                 margin: 2vh 2%;
@@ -23,11 +25,13 @@
                 align-items: center;
                 cursor: pointer;
                 img {
-                    width: 60%;
+                    height: 70%;
                 }
                 span {
                     margin-top: 10px;
                     font-weight: 500;
+                    color: #4050b5;
+                    font-size: 14px;
                 }
             }
             input[type=radio]{
@@ -35,7 +39,7 @@
             }
             // Design of the selected answer
             input[type=radio]:checked + .radio{
-                border-color: #000;
+                border-color: #4050b5;
             }
         }
     }

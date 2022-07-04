@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-main-form',
