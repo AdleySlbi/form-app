@@ -94,18 +94,20 @@
             <mat-step [editable]="true">
                 <div class="one-question" formGroupName="adress">
                     <h1>Votre adresse : </h1>
-                    <mat-form-field>
-                        <mat-label>Rue</mat-label>
-                        <input matInput type="text" formControlName="street" placeholder="Ex. 94121">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Numéro de rue</mat-label>
-                        <input matInput type="text" formControlName="streetNumber" placeholder="Ex. 94121">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Ville</mat-label>
-                        <input matInput type="text" formControlName="city" placeholder="Ex. 94121">
-                    </mat-form-field>
+                    <div class="answer-w">
+                        <mat-form-field style="width: 30%;">
+                            <mat-label>Rue</mat-label>
+                            <input matInput type="text" formControlName="street" placeholder="Rue de Charenton">
+                        </mat-form-field>
+                        <mat-form-field style="width: 30%;">
+                            <mat-label>Numéro de rue</mat-label>
+                            <input matInput type="text" formControlName="streetNumber" placeholder="Ex. 94121">
+                        </mat-form-field>
+                        <mat-form-field style="width: 30%;">
+                            <mat-label>Ville</mat-label>
+                            <input matInput type="text" formControlName="city" placeholder="Ex. 94121">
+                        </mat-form-field>
+                    </div>
                 </div>
                 <div class="stepper-next">
                     <button mat-raised-button color="primary" matStepperNext type="button">Suivant</button>
@@ -114,22 +116,24 @@
             <mat-step [editable]="true">
                 <div class="one-question" formGroupName="perso">
                     <h1>Vos informations personnels : </h1>
-                    <mat-form-field>
-                        <mat-label>Nom</mat-label>
-                        <input matInput type="text" formControlName="firstName" placeholder="Ex. 94121">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Prenom</mat-label>
-                        <input matInput type="text" formControlName="secondName" placeholder="Ex. 94121">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Date de naiscansse</mat-label>
-                        <input matInput type="text" formControlName="birthday" placeholder="Ex. 94121">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Numéro de tel</mat-label>
-                        <input matInput type="text" formControlName="phoneNumber" placeholder="Ex. 94121">
-                    </mat-form-field>
+                    <div class="answer-w">
+                        <mat-form-field>
+                            <mat-label>Nom</mat-label>
+                            <input matInput type="text" formControlName="firstName" placeholder="Ex. 94121">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Prenom</mat-label>
+                            <input matInput type="text" formControlName="secondName" placeholder="Ex. 94121">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Date de naiscansse</mat-label>
+                            <input matInput type="text" formControlName="birthday" placeholder="Ex. 94121">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Numéro de tel</mat-label>
+                            <input matInput type="text" formControlName="phoneNumber" placeholder="Ex. 94121">
+                        </mat-form-field>
+                    </div>
                 </div>
                 <div class="stepper-next">
                     <button mat-raised-button color="primary" matStepperNext type="button">Suivant</button>
