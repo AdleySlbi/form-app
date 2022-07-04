@@ -23,8 +23,8 @@
                         </div>
                     </div>
                 </div>
-                <div>
-                    <button mat-button matStepperNext type="button">Next</button>
+                <div class="stepper-next">
+                    <button mat-raised-button color="primary" matStepperNext type="button">Suivant</button>
                 </div>
             </mat-step>
             <mat-step [editable]="true">
@@ -43,12 +43,13 @@
                             <input type="radio" value="locataire" id="q2a2" formControlName="ownership">
                             <label class="radio" for="q2a2">
                                 <img src="../../assets/icons/tenant.png" alt="Hand and key image">
+                                <span>Locataire</span>
                             </label>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <button mat-button matStepperNext type="button">Next</button>
+                <div class="stepper-next">
+                    <button mat-raised-button color="primary" matStepperNext type="button">Suivant</button>
                 </div>
             </mat-step>
             <mat-step [editable]="true">
@@ -61,8 +62,8 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <div>
-                    <button mat-button matStepperNext type="button">Next</button>
+                <div class="stepper-next">
+                    <button mat-raised-button color="primary" matStepperNext type="button">Suivant</button>
                 </div>
             </mat-step>
             <mat-step [editable]="true">
@@ -87,6 +88,9 @@
                         <input matInput type="text" formControlName="city" placeholder="Ex. 94121">
                     </mat-form-field>
                 </div>
+                <div class="stepper-next">
+                    <button mat-raised-button color="primary" matStepperNext type="button">Suivant</button>
+                </div>
             </mat-step>
             <mat-step [editable]="true">
                 <div class="one-question" formGroupName="perso">
@@ -107,6 +111,9 @@
                         <mat-label>Numéro de tel</mat-label>
                         <input matInput type="text" formControlName="phoneNumber" placeholder="Ex. 94121">
                     </mat-form-field>
+                </div>
+                <div class="stepper-next">
+                    <button mat-raised-button color="primary" matStepperNext type="button">Suivant</button>
                 </div>
             </mat-step>
         </mat-stepper>
