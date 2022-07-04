@@ -69,7 +69,26 @@
             <mat-step [editable]="true">
                 <div class="one-question">
                     <h1>Quelle est votre situation professionnel?</h1>
-                    <!-- Ajouter le select -->
+                    <div class="answer-w">
+                        <mat-form-field style="width: 100%;">
+                            <mat-label>Situation</mat-label>
+                            <mat-select matNativeControl required formControlName="workSituation">
+                              <mat-option value="salarie">Salarié</mat-option>
+                              <mat-option value="liberale">Libérale</mat-option>
+                              <mat-option value="cadre">Cadre</mat-option>
+                              <mat-option value="employe">Employé</mat-option>
+                              <mat-option value="ouvrier">Ouvrier</mat-option>
+                              <mat-option value="retraite">Retraité</mat-option>
+                              <mat-option value="sansactivite">Sans activité</mat-option>
+                              <mat-option value="recherche">En recherche</mat-option>
+                              <mat-option value="artisan">Artisan</mat-option>
+                              <mat-option value="ouvrier">Ouvrier</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                </div>
+                <div class="stepper-next">
+                    <button mat-raised-button color="primary" matStepperNext type="button">Suivant</button>
                 </div>
             </mat-step>
             <mat-step [editable]="true">
