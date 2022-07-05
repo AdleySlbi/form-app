@@ -1,7 +1,7 @@
 <section>
     <form [formGroup]="personnalInformation">
-        <mat-stepper linear #stepper>
-            <mat-step [editable]="true">
+        <mat-stepper linear #stepper [orientation]="(stepperOrientation | async)!">
+            <mat-step [editable]="false">
                 <ng-template matStepLabel>Votre logement</ng-template>
                 <div class="one-question">
                     <h1 class="title-q">Votre type de logement : </h1>
@@ -24,12 +24,12 @@
                     </div>
                 </div>
                 <div class="stepper-next">
-                    <button mat-raised-button color="primary" matStepperNext type="button">Suivant</button>
+                    <button mat-raised-button [disabled]="personnalInformation.value.livingType == ''" color="primary" matStepperNext type="button">Suivant</button>
                 </div>
             </mat-step>
-            <mat-step [editable]="true">
+            <mat-step [editable]="false">
                 <div class="one-question">
-                    <h1>Vous êtes : </h1>
+                    <h1 class="title-q">Vous êtes : </h1>
                     <div class="answer-w">
                         <div class="one-answer">
                             <!-- <img src="../../assets/" alt=""> -->
@@ -49,26 +49,26 @@
                     </div>
                 </div>
                 <div class="stepper-next">
-                    <button mat-raised-button color="primary" matStepperNext type="button">Suivant</button>
+                    <button mat-raised-button color="primary" matStepperNext [disabled]="personnalInformation.value.ownership == ''" type="button">Suivant</button>
                 </div>
             </mat-step>
-            <mat-step [editable]="true">
+            <mat-step [editable]="false">
                 <div class="one-question">
-                    <h1>Votre code postal : </h1>
+                    <h1 class="title-q">Votre code postal : </h1>
                     <div class="answer-w">
                         <mat-form-field style="width: 100%;">
                             <mat-label>Code Postal</mat-label>
-                            <input matInput type="text" formControlName="zipCode" placeholder="Ex. 94121">
+                            <input matInput type="number" formControlName="zipCode" placeholder="Ex. 94121">
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="stepper-next">
-                    <button mat-raised-button color="primary" matStepperNext type="button">Suivant</button>
+                    <button mat-raised-button color="primary" matStepperNext [disabled]="personnalInformation.value.zipCode.toString().length !== 5 "  type="button">Suivant</button>
                 </div>
             </mat-step>
-            <mat-step [editable]="true">
+            <mat-step [editable]="false">
                 <div class="one-question">
-                    <h1>Quelle est votre situation professionnel?</h1>
+                    <h1 class="title-q">Quelle est votre situation professionnel?</h1>
                     <div class="answer-w">
                         <mat-form-field style="width: 100%;">
                             <mat-label>Situation</mat-label>
@@ -88,22 +88,22 @@
                     </div>
                 </div>
                 <div class="stepper-next">
-                    <button mat-raised-button color="primary" matStepperNext type="button">Suivant</button>
+                    <button mat-raised-button color="primary" matStepperNext [disabled]="personnalInformation.value.workSituation == ''"  type="button">Suivant</button>
                 </div>
             </mat-step>
-            <mat-step [editable]="true">
+            <mat-step [editable]="false">
                 <div class="one-question" formGroupName="adress">
-                    <h1>Votre adresse : </h1>
+                    <h1 class="title-q">Votre adresse : </h1>
                     <div class="answer-w">
-                        <mat-form-field style="width: 30%;">
+                        <mat-form-field>
                             <mat-label>Rue</mat-label>
                             <input matInput type="text" formControlName="street" placeholder="Rue de Charenton">
                         </mat-form-field>
-                        <mat-form-field style="width: 30%;">
+                        <mat-form-field>
                             <mat-label>Numéro de rue</mat-label>
                             <input matInput type="text" formControlName="streetNumber" placeholder="Ex. 94121">
                         </mat-form-field>
-                        <mat-form-field style="width: 30%;">
+                        <mat-form-field>
                             <mat-label>Ville</mat-label>
                             <input matInput type="text" formControlName="city" placeholder="Ex. 94121">
                         </mat-form-field>
@@ -113,9 +113,9 @@
                     <button mat-raised-button color="primary" matStepperNext type="button">Suivant</button>
                 </div>
             </mat-step>
-            <mat-step [editable]="true">
+            <mat-step [editable]="false">
                 <div class="one-question" formGroupName="perso">
-                    <h1>Vos informations personnels : </h1>
+                    <h1 class="title-q">Vos informations personnels : </h1>
                     <div class="answer-w">
                         <mat-form-field>
                             <mat-label>Nom</mat-label>
@@ -125,9 +125,20 @@
                             <mat-label>Prenom</mat-label>
                             <input matInput type="text" formControlName="secondName" placeholder="Ex. 94121">
                         </mat-form-field>
-                        <mat-form-field>
+                        <!-- <mat-form-field>
                             <mat-label>Date de naiscansse</mat-label>
                             <input matInput type="text" formControlName="birthday" placeholder="Ex. 94121">
+                        </mat-form-field> -->
+                        <mat-form-field>
+                            <mat-label>Choisir une date</mat-label>
+                            <input matInput formControlName="birthday" [matDatepicker]="picker">
+                            <mat-hint>DD/MM/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Email</mat-label>
+                            <input matInput type="text" formControlName="email" placeholder="Ex. xxx@xmail.com">
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Numéro de tel</mat-label>
