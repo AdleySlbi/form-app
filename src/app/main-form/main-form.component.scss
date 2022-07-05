@@ -17,7 +17,7 @@
                 border: 3px solid #fff;
                 border-radius: 5px;
                 width: 96%;
-                height: 40vh;
+                height: 20vh;
                 margin: 2vh 2%;
                 display: flex;
                 flex-direction: column;
@@ -25,7 +25,7 @@
                 align-items: center;
                 cursor: pointer;
                 img {
-                    height: 70%;
+                    height: 60%;
                 }
                 span {
                     margin-top: 10px;
@@ -69,6 +69,10 @@ input::-webkit-inner-spin-button {
             align-items: center;
             .one-answer {
                 width: 45%;
+                .radio {
+                height: 40vh;
+
+                }
             }
         }
     }

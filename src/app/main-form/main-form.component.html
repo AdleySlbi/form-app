@@ -1,10 +1,11 @@
 <section>
     <form [formGroup]="personnalInformation">
-        <mat-stepper linear #stepper [orientation]="(stepperOrientation | async)!">
+        <!-- <mat-stepper linear #stepper [orientation]="(stepperOrientation | async)!"> -->
+        <mat-stepper linear #stepper>
             <mat-step [editable]="false">
-                <ng-template matStepLabel>Votre logement</ng-template>
+                <ng-template matStepLabel>Logement</ng-template>
                 <div class="one-question">
-                    <h1 class="title-q">Votre type de logement : </h1>
+                    <h1 class="title-q">Votre situation pour le calcul de vos économies : </h1>
                     <div class="answer-w">
                         <div class="one-answer">
                             <!-- <img src="../../assets/" alt=""> -->
@@ -24,12 +25,14 @@
                     </div>
                 </div>
                 <div class="stepper-next">
-                    <button mat-raised-button [disabled]="personnalInformation.value.livingType == ''" color="primary" matStepperNext type="button">Suivant</button>
+                    <button mat-raised-button [disabled]="personnalInformation.value.livingType == ''" color="primary"
+                        matStepperNext type="button">Suivant</button>
                 </div>
             </mat-step>
             <mat-step [editable]="false">
+                <ng-template matStepLabel>Situation</ng-template>
                 <div class="one-question">
-                    <h1 class="title-q">Vous êtes : </h1>
+                    <h1 class="title-q">Votre type de bien :</h1>
                     <div class="answer-w">
                         <div class="one-answer">
                             <!-- <img src="../../assets/" alt=""> -->
@@ -49,12 +52,14 @@
                     </div>
                 </div>
                 <div class="stepper-next">
-                    <button mat-raised-button color="primary" matStepperNext [disabled]="personnalInformation.value.ownership == ''" type="button">Suivant</button>
+                    <button mat-raised-button color="primary" matStepperNext
+                        [disabled]="personnalInformation.value.ownership == ''" type="button">Suivant</button>
                 </div>
             </mat-step>
             <mat-step [editable]="false">
+                <ng-template matStepLabel>Code Postal</ng-template>
                 <div class="one-question">
-                    <h1 class="title-q">Votre code postal : </h1>
+                    <h1 class="title-q">Quel est votre code postal ?</h1>
                     <div class="answer-w">
                         <mat-form-field style="width: 100%;">
                             <mat-label>Code Postal</mat-label>
@@ -63,49 +68,52 @@
                     </div>
                 </div>
                 <div class="stepper-next">
-                    <button mat-raised-button color="primary" matStepperNext [disabled]="personnalInformation.value.zipCode.toString().length !== 5 "  type="button">Suivant</button>
+                    <button mat-raised-button color="primary" matStepperNext
+                        [disabled]="personnalInformation.value.zipCode.toString().length !== 5"
+                        type="button">Suivant</button>
                 </div>
             </mat-step>
-            <mat-step [editable]="false">
+            <mat-step>
+                <mat-spinner></mat-spinner>
+            </mat-step>
+            <mat-step [editable]="false" *ngIf="wekeep == false">
+                <ng-template matStepLabel>Profession</ng-template>
                 <div class="one-question">
-                    <h1 class="title-q">Quelle est votre situation professionnel?</h1>
+                    <h1 class="title-q">Votre situation professionnel ?</h1>
                     <div class="answer-w">
                         <mat-form-field style="width: 100%;">
                             <mat-label>Situation</mat-label>
                             <mat-select matNativeControl required formControlName="workSituation">
-                              <mat-option value="salarie">Salarié</mat-option>
-                              <mat-option value="liberale">Libérale</mat-option>
-                              <mat-option value="cadre">Cadre</mat-option>
-                              <mat-option value="employe">Employé</mat-option>
-                              <mat-option value="ouvrier">Ouvrier</mat-option>
-                              <mat-option value="retraite">Retraité</mat-option>
-                              <mat-option value="sansactivite">Sans activité</mat-option>
-                              <mat-option value="recherche">En recherche</mat-option>
-                              <mat-option value="artisan">Artisan</mat-option>
-                              <mat-option value="ouvrier">Ouvrier</mat-option>
+                                <mat-option value="liberale">Profession Libérale</mat-option>
+                                <mat-option value="salarie">Salarié</mat-option>
+                                <mat-option value="sansactivite">Sans Emploi</mat-option>                              
+                                <mat-option value="retraite">Retraité</mat-option>
+                                <mat-option value="etudiant">Etudiant</mat-option>
                             </mat-select>
-                          </mat-form-field>
+                        </mat-form-field>
                     </div>
                 </div>
                 <div class="stepper-next">
-                    <button mat-raised-button color="primary" matStepperNext [disabled]="personnalInformation.value.workSituation == ''"  type="button">Suivant</button>
+                    <button mat-raised-button color="primary" matStepperNext
+                        [disabled]="personnalInformation.value.workSituation == ''" type="button">Suivant</button>
                 </div>
             </mat-step>
-            <mat-step [editable]="false">
+            <mat-step [editable]="false" *ngIf="wekeep == false">
+                <ng-template matStepLabel>Adresse</ng-template>
                 <div class="one-question" formGroupName="adress">
-                    <h1 class="title-q">Votre adresse : </h1>
+                    <h1 class="title-q">Quelle est votre adresse ? </h1>
                     <div class="answer-w">
                         <mat-form-field>
-                            <mat-label>Rue</mat-label>
-                            <input matInput type="text" formControlName="street" placeholder="Rue de Charenton">
+                            <mat-label>Numéro de rue</mat-label>
+                            <input matInput type="number" formControlName="streetNumber" placeholder="Ex. 23">
                         </mat-form-field>
                         <mat-form-field>
-                            <mat-label>Numéro de rue</mat-label>
-                            <input matInput type="text" formControlName="streetNumber" placeholder="Ex. 94121">
+                            <mat-label>Rue</mat-label>
+                            <input matInput type="text" formControlName="street" placeholder="Rue de Mamba">
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Ville</mat-label>
-                            <input matInput type="text" formControlName="city" placeholder="Ex. 94121">
+                            <input matInput type="text" formControlName="city" placeholder="Ex. Paris">
                         </mat-form-field>
                     </div>
                 </div>
@@ -114,16 +122,17 @@
                 </div>
             </mat-step>
             <mat-step [editable]="false">
+                <ng-template matStepLabel>Coordonnées</ng-template>
                 <div class="one-question" formGroupName="perso">
-                    <h1 class="title-q">Vos informations personnels : </h1>
+                    <h1 class="title-q">Vos informations personnelles : </h1>
                     <div class="answer-w">
                         <mat-form-field>
-                            <mat-label>Nom</mat-label>
-                            <input matInput type="text" formControlName="firstName" placeholder="Ex. 94121">
+                            <mat-label>Prenom</mat-label>
+                            <input matInput type="text" formControlName="secondName" placeholder="Ex. Jean">
                         </mat-form-field>
                         <mat-form-field>
-                            <mat-label>Prenom</mat-label>
-                            <input matInput type="text" formControlName="secondName" placeholder="Ex. 94121">
+                            <mat-label>Nom</mat-label>
+                            <input matInput type="text" formControlName="firstName" placeholder="Ex. Dupont">
                         </mat-form-field>
                         <!-- <mat-form-field>
                             <mat-label>Date de naiscansse</mat-label>
@@ -135,14 +144,14 @@
                             <mat-hint>DD/MM/YYYY</mat-hint>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
-                          </mat-form-field>
+                        </mat-form-field>
                         <mat-form-field>
                             <mat-label>Email</mat-label>
-                            <input matInput type="text" formControlName="email" placeholder="Ex. xxx@xmail.com">
+                            <input matInput type="email" formControlName="email" placeholder="Ex. jean.dupont@xmail.fr">
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Numéro de tel</mat-label>
-                            <input matInput type="text" formControlName="phoneNumber" placeholder="Ex. 94121">
+                            <input matInput type="tel" formControlName="phoneNumber" placeholder="">
                         </mat-form-field>
                     </div>
                 </div>
@@ -235,6 +244,8 @@
                 <input matInput type="text" formControlName="phoneNumber" placeholder="Ex. 94121">
             </mat-form-field>
         </div> -->
-        <button type="button" (click)="test()">Terminer</button>
+        <button type="button" (click)="weKeepChange(true, stepper)">True</button>
+        <button type="button" (click)="weKeepChange(false, stepper)">False</button>
+        <span>{{ wekeep }}</span>
     </form>
 </section>
