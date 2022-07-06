@@ -9,14 +9,14 @@
                     <div class="answer-w">
                         <div class="one-answer">
                             <!-- <img src="../../assets/" alt=""> -->
-                            <input type="radio" value="house" id="q1a1" formControlName="livingType">
+                            <input type="radio" value="house" id="q1a1" formControlName="dwellingType">
                             <label class="radio" for="q1a1">
                                 <img src="../../assets/icons/house.png" alt="House image">
                                 <span>Maison</span>
                             </label>
                         </div>
                         <div class="one-answer">
-                            <input type="radio" value="appartement" id="q1a2" formControlName="livingType">
+                            <input type="radio" value="appartement" id="q1a2" formControlName="dwellingType">
                             <label class="radio" for="q1a2">
                                 <img src="../../assets/icons/building.png" alt="Building image">
                                 <span>Appartement</span>
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="stepper-next">
-                    <button mat-raised-button [disabled]="personnalInformation.value.livingType == ''" color="primary"
+                    <button mat-raised-button [disabled]="personnalInformation.value.dwellingType == ''" color="primary"
                         matStepperNext type="button">Suivant</button>
                 </div>
             </mat-step>
@@ -36,14 +36,14 @@
                     <div class="answer-w">
                         <div class="one-answer">
                             <!-- <img src="../../assets/" alt=""> -->
-                            <input type="radio" value="proprietaire" id="q2a1" formControlName="ownership">
+                            <input type="radio" value="proprietaire" id="q2a1" formControlName="situationType">
                             <label class="radio" for="q2a1">
                                 <img src="../../assets/icons/owner.png" alt="House image">
                                 <span>Propiétaire</span>
                             </label>
                         </div>
                         <div class="one-answer">
-                            <input type="radio" value="locataire" id="q2a2" formControlName="ownership">
+                            <input type="radio" value="locataire" id="q2a2" formControlName="situationType">
                             <label class="radio" for="q2a2">
                                 <img src="../../assets/icons/tenant.png" alt="Hand and key image">
                                 <span>Locataire</span>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="stepper-next">
                     <button mat-raised-button color="primary" matStepperNext
-                        [disabled]="personnalInformation.value.ownership == ''" type="button">Suivant</button>
+                        [disabled]="personnalInformation.value.situationType == ''" type="button">Suivant</button>
                 </div>
             </mat-step>
             <mat-step [editable]="false">
@@ -83,7 +83,7 @@
                     <div class="answer-w">
                         <mat-form-field style="width: 100%;">
                             <mat-label>Situation</mat-label>
-                            <mat-select matNativeControl required formControlName="workSituation">
+                            <mat-select matNativeControl required formControlName="jobType">
                                 <mat-option value="liberale">Profession Libérale</mat-option>
                                 <mat-option value="salarie">Salarié</mat-option>
                                 <mat-option value="sansactivite">Sans Emploi</mat-option>                              
@@ -95,12 +95,12 @@
                 </div>
                 <div class="stepper-next">
                     <button mat-raised-button color="primary" matStepperNext
-                        [disabled]="personnalInformation.value.workSituation == ''" type="button">Suivant</button>
+                        [disabled]="personnalInformation.value.jobType == ''" type="button">Suivant</button>
                 </div>
             </mat-step>
             <mat-step [editable]="false" *ngIf="wekeep == false">
                 <ng-template matStepLabel>Adresse</ng-template>
-                <div class="one-question" formGroupName="adress">
+                <div class="one-question">
                     <h1 class="title-q">Quelle est votre adresse ? </h1>
                     <div class="answer-w">
                         <mat-form-field>
@@ -109,11 +109,11 @@
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Rue</mat-label>
-                            <input matInput type="text" formControlName="street" placeholder="Rue de Mamba">
+                            <input matInput type="text" formControlName="streetAddress" placeholder="Rue de Mamba">
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Ville</mat-label>
-                            <input matInput type="text" formControlName="city" placeholder="Ex. Paris">
+                            <input matInput type="text" formControlName="cityName" placeholder="Ex. Paris">
                         </mat-form-field>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
             </mat-step>
             <mat-step [editable]="false">
                 <ng-template matStepLabel>Coordonnées</ng-template>
-                <div class="one-question" formGroupName="perso">
+                <div class="one-question">
                     <h1 class="title-q">Vos informations personnelles : </h1>
                     <div class="answer-w">
                         <mat-form-field>
@@ -134,20 +134,16 @@
                             <mat-label>Nom</mat-label>
                             <input matInput type="text" formControlName="firstName" placeholder="Ex. Dupont">
                         </mat-form-field>
-                        <!-- <mat-form-field>
-                            <mat-label>Date de naiscansse</mat-label>
-                            <input matInput type="text" formControlName="birthday" placeholder="Ex. 94121">
-                        </mat-form-field> -->
                         <mat-form-field>
-                            <mat-label>Choisir une date</mat-label>
-                            <input matInput formControlName="birthday" [matDatepicker]="picker">
+                            <mat-label>Année de naissance</mat-label>
+                            <input matInput formControlName="birthYear" [matDatepicker]="picker">
                             <mat-hint>DD/MM/YYYY</mat-hint>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Email</mat-label>
-                            <input matInput type="email" formControlName="email" placeholder="Ex. jean.dupont@xmail.fr">
+                            <input matInput type="email" formControlName="emailAddress" placeholder="Ex. jean.dupont@xmail.fr">
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Numéro de tel</mat-label>
@@ -156,96 +152,14 @@
                     </div>
                 </div>
                 <div class="stepper-next">
-                    <button mat-raised-button color="primary" matStepperNext type="button">Suivant</button>
+                    <button mat-raised-button color="primary" [disabled]="personnalInformation.value.secondName == '' && personnalInformation.value.firstName && personnalInformation.value.emailAddress && personnalInformation.value.phoneNumber" matStepperNext type="button">Suivant</button>
                 </div>
             </mat-step>
         </mat-stepper>
 
-        <!-- <div class="one-question">
-            <h1 class="title-q">Votre type de logement : </h1>
-            <div class="answer-w">
-                <div class="one-answer">
-                    <img src="../../assets/" alt="">
-                    <input type="radio" value="house" id="q1a1" formControlName="livingType">
-                    <label class="radio" for="q1a1">
-                        <img src="../../assets/icons/house.png" alt="House image">
-                        <span>Maison</span>
-                    </label>
-                </div>
-                <div class="one-answer">
-                    <input type="radio" value="appartement" id="q1a2" formControlName="livingType">
-                    <label class="radio" for="q1a2">Appartement</label>
-                </div>
-            </div>
-        </div> -->
-        <!-- <div class="one-question">
-            <h1>Vous êtes : </h1>
-            <div class="answer-w">
-                <div class="one-answer">
-                    <input type="radio" value="proprietaire" id="q2a1" formControlName="ownership">
-                    <label class="radio" for="q2a1">
-                        <img src="../../assets/icons/house.png" alt="House image">
-                        <span>Propiétaire</span>
-                    </label>
-                </div>
-                <div class="one-answer">
-                    <input type="radio" value="locataire" id="q2a2" formControlName="ownership">
-                    <label class="radio" for="q2a2">Locataire</label>
-                </div>
-            </div>
-        </div> -->
-        <!-- <div class="one-question">
-            <h1>Votre code postal : </h1>
-            <div class="answer-w">
-
-                <mat-form-field>
-                    <mat-label>Code Postal</mat-label>
-                    <input matInput type="text" formControlName="zipCode" placeholder="Ex. 94121">
-                </mat-form-field>
-            </div>
-        </div> -->
-        <!-- <div class="one-question">
-            <h1>Quelle est votre situation professionnel?</h1>
-        </div> -->
-
-        <!-- Implémenter une fonctionnalité pré-remplit -->
-        <!-- <div class="one-question" formGroupName="adress">
-            <h1>Votre adresse : </h1>
-            <mat-form-field>
-                <mat-label>Rue</mat-label>
-                <input matInput type="text" formControlName="street" placeholder="Ex. 94121">
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Numéro de rue</mat-label>
-                <input matInput type="text" formControlName="streetNumber" placeholder="Ex. 94121">
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Ville</mat-label>
-                <input matInput type="text" formControlName="city" placeholder="Ex. 94121">
-            </mat-form-field>
-        </div> -->
-
-        <!-- <div class="one-question" formGroupName="perso">
-            <h1>Vos informations personnels : </h1>
-            <mat-form-field>
-                <mat-label>Nom</mat-label>
-                <input matInput type="text" formControlName="firstName" placeholder="Ex. 94121">
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Prenom</mat-label>
-                <input matInput type="text" formControlName="secondName" placeholder="Ex. 94121">
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Date de naiscansse</mat-label>
-                <input matInput type="text" formControlName="birthday" placeholder="Ex. 94121">
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Numéro de tel</mat-label>
-                <input matInput type="text" formControlName="phoneNumber" placeholder="Ex. 94121">
-            </mat-form-field>
-        </div> -->
         <button type="button" (click)="weKeepChange(true, stepper)">True</button>
         <button type="button" (click)="weKeepChange(false, stepper)">False</button>
         <span>{{ wekeep }}</span>
+        <button type="button" (click)="test()">Données</button>
     </form>
 </section>

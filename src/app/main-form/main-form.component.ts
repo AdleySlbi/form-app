@@ -29,16 +29,15 @@ export class MainFormComponent implements OnInit {
 
 
   public wekeep: any = null;
-  // constructor() { }
 
   ngOnInit(): void {
   }
 
   test() {
-    console.log(this.personnalInformation.value.adress)
+    console.log(this.personnalInformation)
   }
 
-  weKeepChange(status: boolean, stepper:MatStepper) {
+  weKeepChange(status: boolean, stepper: MatStepper) {
     this.wekeep = status;
     // this.myStepper.next();
     stepper.next()
@@ -47,22 +46,18 @@ export class MainFormComponent implements OnInit {
   // If houseInformation.livingType = house 
   // Check if we_keep == 0 
   public personnalInformation = new FormGroup({
-    livingType: new FormControl('', Validators.required),
-    ownership: new FormControl('', Validators.required),
+    dwellingType: new FormControl('', Validators.required),
+    situationType: new FormControl('', Validators.required),
     zipCode: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]),
-    workSituation: new FormControl('', [Validators.required]),
-    adress: new FormGroup({
-      street: new FormControl('', Validators.required),
-      streetNumber: new FormControl('', Validators.required),
-      city: new FormControl('', Validators.required)
-    }),
-    perso: new FormGroup({
-      firstName: new FormControl('', Validators.required),
-      secondName: new FormControl('', Validators.required),
-      birthday: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      phoneNumber: new FormControl('', Validators.required)
-    })
+    jobType: new FormControl('', [Validators.required]),
+    streetAddress: new FormControl('', Validators.required),
+    streetNumber: new FormControl('', Validators.required),
+    cityName: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.required),
+    secondName: new FormControl('', Validators.required),
+    birthYear: new FormControl('', Validators.required),
+    emailAddress: new FormControl('', [Validators.required, Validators.email]),
+    phoneNumber: new FormControl('', Validators.required)
   })
 
   finalSendToApi() {
