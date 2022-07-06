@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatStepper, StepperOrientation } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-
+import { DOCUMENT } from '@angular/common';
+declare const google: any;
 
 @Component({
   selector: 'app-main-form',
@@ -18,9 +19,12 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 })
 export class MainFormComponent implements OnInit {
 
+  SearchPlacesForm: NgForm | undefined;
+  public shippingAddress: Event | undefined;
+
   stepperOrientation: Observable<StepperOrientation>;
 
-  constructor(private _formBuilder: FormBuilder, breakpointObserver: BreakpointObserver) {
+  constructor(private _formBuilder: FormBuilder, breakpointObserver: BreakpointObserver, @Inject(DOCUMENT) private document: Document, private renderer2: Renderer2) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 768px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
@@ -31,6 +35,7 @@ export class MainFormComponent implements OnInit {
   public wekeep: any = null;
 
   ngOnInit(): void {
+    this.loadAutoComplete();
   }
 
   test() {
@@ -68,5 +73,46 @@ export class MainFormComponent implements OnInit {
     } else if (this.personnalInformation.value.livingType == "appartement") {
       console.log("API3")
     }
+  }
+
+    private loadAutoComplete() {
+    const url = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyB0rvm8RnIJfF64EAKJPk5D9KrYyt8rHsg&libraries=places&v=weekly';
+    this.loadScript(url).then(() => this.initAutocomplete());
+  }
+
+    private loadScript(url: any) {
+    return new Promise((resolve, reject) => {
+      const script = this.renderer2.createElement('script');
+      script.type = 'text/javascript';
+      script.src = url;
+      script.text = ``;
+      script.async = true;
+      script.defer = true;
+      script.onload = resolve;
+      script.onerror = reject;
+      this.renderer2.appendChild(this.document.head, script);
+    })
+  }
+
+    initAutocomplete() {
+    const input = document.getElementById("txtSearchPlaces") as HTMLInputElement;
+    const autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.setFields([
+      "address_components",
+      "geometry",
+      "icon",
+      "name"
+    ]);
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+      if (!place.geometry) {
+        // User entered the name of a Place that was not suggested and
+        // pressed the Enter key, or the Place Details request failed.
+        alert('No details available for input:' + input.value);
+        return;
+      } else {
+        return;
+      }
+    });
   }
 }
