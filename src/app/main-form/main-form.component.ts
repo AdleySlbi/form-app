@@ -51,10 +51,11 @@ export class MainFormComponent implements OnInit {
   public wekeep: any = null;
 
   ngOnInit(): void {
+
   }
 
   test() {
-    console.log(this.personnalInformation)
+    console.log(this.personnalInformation.value.birthYear)
   }
 
   // appNoKeep(){
@@ -63,6 +64,18 @@ export class MainFormComponent implements OnInit {
 
   //   }
   // }  
+
+  weKeepPreCheckDwelling(){
+    if(this.personnalInformation.value.dwellingType == 'appartement'){
+      this.wekeep = false;
+    } 
+  }
+  
+  weKeepPreCheckSitu(){
+    if(this.personnalInformation.value.dwellingType == 'house' && this.personnalInformation.value.situationType == 'locataire' ){
+      this.wekeep = false;
+    } 
+  }
 
   // On Appartement, don't call the API WeKeep
   weKeepChange(status: boolean, stepper: MatStepper) {
@@ -97,7 +110,7 @@ export class MainFormComponent implements OnInit {
   })
 
   chosenYearHandler(ev:any, input:any) {
-    let { _d } = ev;
+    let { _d } = ev._i.year;
     this.personnalInformation.value.birthYear = _d;
     // input._destroyPopup()
     this.picker.close()
