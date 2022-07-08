@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatStepper, StepperOrientation } from '@angular/material/stepper';
@@ -35,7 +35,7 @@ export class MainFormComponent implements OnInit {
 
   stepperOrientation: Observable<StepperOrientation>;
 
-  constructor(private _formBuilder: FormBuilder, breakpointObserver: BreakpointObserver) {
+  constructor(private _formBuilder: UntypedFormBuilder, breakpointObserver: BreakpointObserver) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 768px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
@@ -76,19 +76,19 @@ export class MainFormComponent implements OnInit {
 
   // If houseInformation.livingType = house 
   // Check if we_keep == 0 
-  public personnalInformation = new FormGroup({
-    dwellingType: new FormControl('', Validators.required),
-    situationType: new FormControl('', Validators.required),
-    zipCode: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]),
-    jobType: new FormControl('', [Validators.required]),
-    streetAddress: new FormControl('', Validators.required),
-    streetNumber: new FormControl('', Validators.required),
-    cityName: new FormControl('', Validators.required),
-    firstName: new FormControl('', Validators.required),
-    secondName: new FormControl('', Validators.required),
-    birthYear: new FormControl('', Validators.required),
-    emailAddress: new FormControl('', [Validators.required, Validators.email]),
-    phoneNumber: new FormControl('', Validators.required)
+  public personnalInformation = new UntypedFormGroup({
+    dwellingType: new UntypedFormControl('', Validators.required),
+    situationType: new UntypedFormControl('', Validators.required),
+    zipCode: new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]),
+    jobType: new UntypedFormControl('', [Validators.required]),
+    streetAddress: new UntypedFormControl('', Validators.required),
+    streetNumber: new UntypedFormControl('', Validators.required),
+    cityName: new UntypedFormControl('', Validators.required),
+    firstName: new UntypedFormControl('', Validators.required),
+    secondName: new UntypedFormControl('', Validators.required),
+    birthYear: new UntypedFormControl('', Validators.required),
+    emailAddress: new UntypedFormControl('', [Validators.required, Validators.email]),
+    phoneNumber: new UntypedFormControl('', Validators.required)
   })
 
   chosenYearHandler(ev:any, input:any) {
