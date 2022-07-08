@@ -5,15 +5,30 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatStepper, StepperOrientation } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'YYYY',
+  },
+  display: {
+    dateInput: 'YYYY',
+    monthYearLabel: 'YYYY',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 
 @Component({
   selector: 'app-main-form',
   templateUrl: './main-form.component.html',
   styleUrls: ['./main-form.component.scss'],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }
+    { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
+    {
+      provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ]
 })
 export class MainFormComponent implements OnInit {
@@ -48,10 +63,10 @@ export class MainFormComponent implements OnInit {
   weKeepChange(status: boolean, stepper: MatStepper) {
     // this.wekeep = status;
     // this.myStepper.next();
-    if(status == true ){
+    if (status == true) {
       stepper.next()
       stepper.next()
-    } else  {
+    } else {
       stepper.next()
     }
 
@@ -76,6 +91,13 @@ export class MainFormComponent implements OnInit {
     phoneNumber: new FormControl('', Validators.required)
   })
 
+  chosenYearHandler(ev:any, input:any) {
+    let { _d } = ev;
+    this.personnalInformation.value.birthYear = _d;
+    input._destroyPopup()
+  }
+
+
   finalSendToApi() {
     if (this.personnalInformation.value.livingType == "house" && this.wekeep == true) {
       console.log("API1")
@@ -86,3 +108,4 @@ export class MainFormComponent implements OnInit {
     }
   }
 }
+
