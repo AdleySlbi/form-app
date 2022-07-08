@@ -26,7 +26,7 @@
                 </div>
                 <div class="stepper-next">
                     <button mat-raised-button [disabled]="personnalInformation.value.dwellingType == ''" color="primary"
-                        matStepperNext type="button">Suivant</button>
+                        matStepperNext type="button" >Suivant</button>
                 </div>
             </mat-step>
             <mat-step [editable]="false">
@@ -76,7 +76,7 @@
             <mat-step>
                 <mat-spinner></mat-spinner>
             </mat-step>
-            <mat-step [editable]="false" *ngIf="wekeep == false">
+            <mat-step [editable]="false">
                 <ng-template matStepLabel>Profession</ng-template>
                 <div class="one-question">
                     <h1 class="title-q">Votre situation professionnel ?</h1>
@@ -98,7 +98,7 @@
                         [disabled]="personnalInformation.value.jobType == ''" type="button">Suivant</button>
                 </div>
             </mat-step>
-            <mat-step [editable]="false" *ngIf="wekeep == false">
+            <mat-step [editable]="false">
                 <ng-template matStepLabel>Adresse</ng-template>
                 <div class="one-question">
                     <h1 class="title-q">Quelle est votre adresse ? </h1>
@@ -139,7 +139,7 @@
                             <input matInput formControlName="birthYear" [matDatepicker]="picker">
                             <mat-hint>DD/MM/YYYY</mat-hint>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-datepicker #picker startView="year"></mat-datepicker>
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Email</mat-label>
@@ -156,10 +156,11 @@
                 </div>
             </mat-step>
         </mat-stepper>
+        <span style="display: block;"> We Keep Status : {{ wekeep }}</span>
 
         <button type="button" (click)="weKeepChange(true, stepper)">True</button>
         <button type="button" (click)="weKeepChange(false, stepper)">False</button>
-        <span>{{ wekeep }}</span>
         <button type="button" (click)="test()">Données</button>
     </form>
 </section>
+<!-- <input type="text" id="autocomplete" placeholder="Enter a place"> -->

@@ -37,10 +37,26 @@ export class MainFormComponent implements OnInit {
     console.log(this.personnalInformation)
   }
 
+  // appNoKeep(){
+  //   if(this.personnalInformation.value.dwellingType == "Appartement"){
+  //   this.wekeep = false
+
+  //   }
+  // }  
+
+  // On Appartement, don't call the API WeKeep
   weKeepChange(status: boolean, stepper: MatStepper) {
-    this.wekeep = status;
+    // this.wekeep = status;
     // this.myStepper.next();
-    stepper.next()
+    if(status == true ){
+      stepper.next()
+      stepper.next()
+    } else  {
+      stepper.next()
+    }
+
+    // stepper.next()
+
   }
 
   // If houseInformation.livingType = house 
