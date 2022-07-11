@@ -35,7 +35,7 @@ export const MY_FORMATS = {
 export class MainFormComponent implements OnInit {
 
   @ViewChild('picker', { static: false })
-  private picker!: MatDatepicker<Date>;  
+  private picker!: MatDatepicker<Date>;
 
   stepperOrientation: Observable<StepperOrientation>;
 
@@ -57,16 +57,16 @@ export class MainFormComponent implements OnInit {
     console.log(this.personnalInformation.value)
   }
 
-  weKeepPreCheckDwelling(){
-    if(this.personnalInformation.value.dwellingType == 'appartement'){
+  weKeepPreCheckDwelling() {
+    if (this.personnalInformation.value.dwellingType == 'appartement') {
       this.wekeep = false;
-    } 
+    }
   }
-  
-  weKeepPreCheckSitu(){
-    if(this.personnalInformation.value.dwellingType == 'house' && this.personnalInformation.value.situationType == 'locataire' ){
+
+  weKeepPreCheckSitu() {
+    if (this.personnalInformation.value.dwellingType == 'house' && this.personnalInformation.value.situationType == 'locataire') {
       this.wekeep = false;
-    } 
+    }
   }
 
   // On Appartement, don't call the API WeKeep
@@ -97,7 +97,7 @@ export class MainFormComponent implements OnInit {
     phoneNumber: new UntypedFormControl(null, Validators.required)
   })
 
-  chosenYearHandler(ev:any, input:any) {
+  chosenYearHandler(ev: any, input: any) {
     console.log(this.personnalInformation.value.birthYear)
     let { _d } = ev._i.year;
     this.personnalInformation.value.birthYear = String(ev._i.year);
@@ -107,12 +107,63 @@ export class MainFormComponent implements OnInit {
   }
 
   finalSendToApi() {
+    let formInfo = this.personnalInformation.value;
+
     if (this.personnalInformation.value.livingType == "house" && this.wekeep == true) {
       console.log("API1")
+
+      let objectToSend = {
+        "situationType": formInfo.situationType,
+        "dwellingType": formInfo.dwellingType,
+        "zipCode": formInfo.zipCode,
+        "firstName": formInfo.firstName,
+        "lastName": formInfo.lastName,
+        "phoneNumber": formInfo.phoneNumber,
+        "emailAddress": formInfo.email,
+        "offer": "PV",
+        // "date": ,
+        // "token": "{lead_token}",
+        // "origin": "{tf}",
+        "chauffage": "",
+        // "lander": "{lander}",
+        "birth_year": formInfo.birthYear
+      };
+
+      console.log(objectToSend)
+      // POST Request : https://script.google.com/macros/s/AKfycbzUoZGKsPk-crUwcMRniz-UnqbfJ9T5fMWUpW2Dl7F6W0ilDXAsAWpDCdG4daf5DxQguA/exec
+
     } else if (this.personnalInformation.value.livingType == "house" && this.wekeep == false) {
       console.log("API2")
+      let objectToSend = {
+        "originDomain": "panneau-solaire.affiliate.com",
+         "leadBy": "jeremy",
+         "offer": "SOLAR",
+         "firstName": formInfo.firstName,
+         "lastName": formInfo.lastName,
+         "dwellingType": "Maison",
+         "situationType": "Propriétaire",
+         "jobType": formInfo.jobType,
+         "birthYear": formInfo.birthYear,
+         "emailAddress": formInfo.email,
+         "phoneNumber": formInfo.phoneNumber,
+         "streetAddress": formInfo.streetAddress,
+         "zipCode": formInfo.zipCode,
+         "cityName": formInfo.cityName,
+         "propertyState": "",
+         "revenueRange": "",
+         "ip": "{ip_address}",
+         "trafficSource": "{tf}",
+         "subdomain": "solaire",
+         "terms": "1",
+         "bases": "1",
+         "apidl": "1",
+         "apilf": "1"
+      };
+      console.log(objectToSend);
+
     } else if (this.personnalInformation.value.livingType == "appartement") {
-      console.log("API3")
+      console.log("API3");
+      // A definir
     }
   }
 }
