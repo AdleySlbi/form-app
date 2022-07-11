@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatStepper, StepperOrientation } from '@angular/material/stepper';
@@ -26,7 +26,7 @@ export const MY_FORMATS = {
   templateUrl: './main-form.component.html',
   styleUrls: ['./main-form.component.scss'],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
+    // { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
     {
       provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
@@ -55,7 +55,7 @@ export class MainFormComponent implements OnInit {
   }
 
   test() {
-    console.log(this.personnalInformation.value.birthYear)
+    console.log(this.personnalInformation.value)
   }
 
   // appNoKeep(){
@@ -84,6 +84,7 @@ export class MainFormComponent implements OnInit {
     if (status == true) {
       stepper.next()
       stepper.next()
+      stepper.next()
     } else {
       stepper.next()
     }
@@ -99,20 +100,22 @@ export class MainFormComponent implements OnInit {
     situationType: new UntypedFormControl('', Validators.required),
     zipCode: new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]),
     jobType: new UntypedFormControl('', [Validators.required]),
-    streetAddress: new UntypedFormControl('', Validators.required),
-    streetNumber: new UntypedFormControl('', Validators.required),
-    cityName: new UntypedFormControl('', Validators.required),
-    firstName: new UntypedFormControl('', Validators.required),
-    secondName: new UntypedFormControl('', Validators.required),
-    birthYear: new UntypedFormControl('', Validators.required),
-    emailAddress: new UntypedFormControl('', [Validators.required, Validators.email]),
-    phoneNumber: new UntypedFormControl('', Validators.required)
+    streetAddress: new UntypedFormControl(null, Validators.required),
+    streetNumber: new UntypedFormControl(null, Validators.required),
+    cityName: new UntypedFormControl(null, Validators.required),
+    firstName: new UntypedFormControl(null, Validators.required),
+    secondName: new UntypedFormControl(null, Validators.required),
+    birthYear: new FormControl(null, Validators.required),
+    emailAddress: new UntypedFormControl(null, [Validators.required, Validators.email]),
+    phoneNumber: new UntypedFormControl(null, Validators.required)
   })
 
   chosenYearHandler(ev:any, input:any) {
+    console.log(this.personnalInformation.value.birthYear)
     let { _d } = ev._i.year;
-    this.personnalInformation.value.birthYear = _d;
+    this.personnalInformation.value.birthYear = String(ev._i.year);
     // input._destroyPopup()
+    console.log(this.personnalInformation.value.birthYear)
     this.picker.close()
   }
 
