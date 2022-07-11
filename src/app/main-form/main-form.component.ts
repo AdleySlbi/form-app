@@ -26,7 +26,6 @@ export const MY_FORMATS = {
   templateUrl: './main-form.component.html',
   styleUrls: ['./main-form.component.scss'],
   providers: [
-    // { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
     {
       provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
@@ -58,13 +57,6 @@ export class MainFormComponent implements OnInit {
     console.log(this.personnalInformation.value)
   }
 
-  // appNoKeep(){
-  //   if(this.personnalInformation.value.dwellingType == "Appartement"){
-  //   this.wekeep = false
-
-  //   }
-  // }  
-
   weKeepPreCheckDwelling(){
     if(this.personnalInformation.value.dwellingType == 'appartement'){
       this.wekeep = false;
@@ -79,8 +71,6 @@ export class MainFormComponent implements OnInit {
 
   // On Appartement, don't call the API WeKeep
   weKeepChange(status: boolean, stepper: MatStepper) {
-    // this.wekeep = status;
-    // this.myStepper.next();
     if (status == true) {
       stepper.next()
       stepper.next()
@@ -88,9 +78,6 @@ export class MainFormComponent implements OnInit {
     } else {
       stepper.next()
     }
-
-    // stepper.next()
-
   }
 
   // If houseInformation.livingType = house 
