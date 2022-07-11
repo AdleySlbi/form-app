@@ -159,7 +159,14 @@
                     <button mat-raised-button color="primary"
                         [disabled]="personnalInformation.value.secondName == null || personnalInformation.value.firstName == null || personnalInformation.value.emailAddress == null|| personnalInformation.value.phoneNumber == null ||
                         personnalInformation.value.birthYear == null || personnalInformation.value.secondName == '' || personnalInformation.value.firstName == '' || personnalInformation.value.emailAddress == ''|| personnalInformation.value.phoneNumber == '' || personnalInformation.value.birthYear == '' "
-                        matStepperNext type="button">Suivant</button>
+                        matStepperNext type="button" (click)="finalSendToApi()">Suivant</button>
+                </div>
+            </mat-step>
+            <mat-step editable="false">
+                <ng-template matStepLabel>Coordonnées</ng-template>
+                <div class="one-question">
+                    <h1>Lorem Ipsum</h1>
+                    <p>Ajouter un message de remerciement?</p>
                 </div>
             </mat-step>
         </mat-stepper>

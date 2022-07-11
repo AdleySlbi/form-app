@@ -109,7 +109,7 @@ export class MainFormComponent implements OnInit {
   finalSendToApi() {
     let formInfo = this.personnalInformation.value;
 
-    if (this.personnalInformation.value.livingType == "house" && this.wekeep == true) {
+    if (this.personnalInformation.value.dwellingType == "house" && this.wekeep == true) {
       console.log("API1")
 
       let objectToSend = {
@@ -132,7 +132,7 @@ export class MainFormComponent implements OnInit {
       console.log(objectToSend)
       // POST Request : https://script.google.com/macros/s/AKfycbzUoZGKsPk-crUwcMRniz-UnqbfJ9T5fMWUpW2Dl7F6W0ilDXAsAWpDCdG4daf5DxQguA/exec
 
-    } else if (this.personnalInformation.value.livingType == "house" && this.wekeep == false) {
+    } else if (this.personnalInformation.value.dwellingType == "house" && this.wekeep == false) {
       console.log("API2")
       let objectToSend = {
         "originDomain": "panneau-solaire.affiliate.com",
@@ -151,8 +151,8 @@ export class MainFormComponent implements OnInit {
          "cityName": formInfo.cityName,
          "propertyState": "",
          "revenueRange": "",
-         "ip": "{ip_address}",
-         "trafficSource": "{tf}",
+         "ip": "{ip_address}", // Todo
+         "trafficSource": "{tf}", // Todo
          "subdomain": "solaire",
          "terms": "1",
          "bases": "1",
@@ -160,8 +160,7 @@ export class MainFormComponent implements OnInit {
          "apilf": "1"
       };
       console.log(objectToSend);
-
-    } else if (this.personnalInformation.value.livingType == "appartement") {
+    } else if (this.personnalInformation.value.dwellingType == "appartement") {
       console.log("API3");
       // A definir
     }
