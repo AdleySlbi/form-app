@@ -80,6 +80,15 @@ export class MainFormComponent implements OnInit {
     }
   }
 
+  nextStep(stepper: MatStepper) {
+    setTimeout(function () {
+      // function code goes here
+      stepper.next()
+    }, 1000);
+  }
+
+
+
   // If houseInformation.livingType = house 
   // Check if we_keep == 0 
   public personnalInformation = new UntypedFormGroup({
@@ -136,28 +145,28 @@ export class MainFormComponent implements OnInit {
       console.log("API2")
       let objectToSend = {
         "originDomain": "panneau-solaire.affiliate.com",
-         "leadBy": "jeremy",
-         "offer": "SOLAR",
-         "firstName": formInfo.firstName,
-         "lastName": formInfo.lastName,
-         "dwellingType": "Maison",
-         "situationType": "Propriétaire",
-         "jobType": formInfo.jobType,
-         "birthYear": formInfo.birthYear,
-         "emailAddress": formInfo.email,
-         "phoneNumber": formInfo.phoneNumber,
-         "streetAddress": formInfo.streetAddress,
-         "zipCode": formInfo.zipCode,
-         "cityName": formInfo.cityName,
-         "propertyState": "",
-         "revenueRange": "",
-         "ip": "{ip_address}", // Todo
-         "trafficSource": "{tf}", // Todo
-         "subdomain": "solaire",
-         "terms": "1",
-         "bases": "1",
-         "apidl": "1",
-         "apilf": "1"
+        "leadBy": "jeremy",
+        "offer": "SOLAR",
+        "firstName": formInfo.firstName,
+        "lastName": formInfo.lastName,
+        "dwellingType": "Maison",
+        "situationType": "Propriétaire",
+        "jobType": formInfo.jobType,
+        "birthYear": formInfo.birthYear,
+        "emailAddress": formInfo.email,
+        "phoneNumber": formInfo.phoneNumber,
+        "streetAddress": formInfo.streetAddress,
+        "zipCode": formInfo.zipCode,
+        "cityName": formInfo.cityName,
+        "propertyState": "",
+        "revenueRange": "",
+        "ip": "{ip_address}", // Todo
+        "trafficSource": "{tf}", // Todo
+        "subdomain": "solaire",
+        "terms": "1",
+        "bases": "1",
+        "apidl": "1",
+        "apilf": "1"
       };
       console.log(objectToSend);
     } else if (this.personnalInformation.value.dwellingType == "appartement") {

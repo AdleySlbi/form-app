@@ -61,7 +61,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-// :host ::ng-deep .mat-horizontal-stepper-header-container {   display: none; }
+:host ::ng-deep .mat-horizontal-stepper-header-container {   display: none; }
 
 @media (min-width: 768px) {
     .one-question {

@@ -9,14 +9,14 @@
                         <div class="one-answer">
                             <!-- <img src="../../assets/" alt=""> -->
                             <input type="radio" value="house" id="q1a1" formControlName="dwellingType">
-                            <label class="radio" for="q1a1">
+                            <label class="radio" for="q1a1" (click)="nextStep(stepper)">
                                 <img src="../../assets/icons/house.png" alt="House image">
                                 <span>Maison</span>
                             </label>
                         </div>
                         <div class="one-answer">
                             <input type="radio" value="appartement" id="q1a2" formControlName="dwellingType">
-                            <label class="radio" for="q1a2">
+                            <label class="radio" for="q1a2" (click)="nextStep(stepper)">
                                 <img src="../../assets/icons/building.png" alt="Building image">
                                 <span>Appartement</span>
                             </label>
@@ -36,14 +36,14 @@
                         <div class="one-answer">
                             <!-- <img src="../../assets/" alt=""> -->
                             <input type="radio" value="proprietaire" id="q2a1" formControlName="situationType">
-                            <label class="radio" for="q2a1">
+                            <label class="radio" for="q2a1" (click)="nextStep(stepper)">
                                 <img src="../../assets/icons/owner.png" alt="House image">
                                 <span>Propiétaire</span>
                             </label>
                         </div>
                         <div class="one-answer">
                             <input type="radio" value="locataire" id="q2a2" formControlName="situationType">
-                            <label class="radio" for="q2a2">
+                            <label class="radio" for="q2a2" (click)="nextStep(stepper)">
                                 <img src="../../assets/icons/tenant.png" alt="Hand and key image">
                                 <span>Locataire</span>
                             </label>
@@ -69,7 +69,7 @@
                 <div class="stepper-next">
                     <button mat-raised-button color="primary" matStepperNext
                         [disabled]="personnalInformation.value.zipCode.toString().length !== 5"
-                        type="button">Suivant</button>
+                        type="submit">Suivant</button>
                 </div>
             </mat-step>
             <mat-step *ngIf="wekeep == null">
@@ -95,7 +95,7 @@
                 </div>
                 <div class="stepper-next">
                     <button mat-raised-button color="primary" matStepperNext
-                        [disabled]="personnalInformation.value.jobType == ''" type="button">Suivant</button>
+                        [disabled]="personnalInformation.value.jobType == ''" type="submit">Suivant</button>
                 </div>
             </mat-step>
             <mat-step [editable]="false">
@@ -103,10 +103,10 @@
                 <div class="one-question">
                     <h1 class="title-q">Quelle est votre adresse ? </h1>
                     <div class="answer-w">
-                        <mat-form-field>
+                        <!-- <mat-form-field>
                             <mat-label>Numéro de rue</mat-label>
                             <input matInput type="number" formControlName="streetNumber" placeholder="Ex. 23">
-                        </mat-form-field>
+                        </mat-form-field> -->
                         <mat-form-field>
                             <mat-label>Rue</mat-label>
                             <input matInput type="text" formControlName="streetAddress" placeholder="Rue de Mamba">
@@ -119,8 +119,8 @@
                 </div>
                 <div class="stepper-next">
                     <button mat-raised-button color="primary"
-                        [disabled]="personnalInformation.value.streetNumber === null || personnalInformation.value.streetAddress === null || personnalInformation.value.cityName === null || personnalInformation.value.streetAddress === '' || personnalInformation.value.cityName === '' "
-                        matStepperNext type="button">Suivant</button>
+                        [disabled]="personnalInformation.value.streetAddress === null || personnalInformation.value.cityName === null || personnalInformation.value.streetAddress === '' || personnalInformation.value.cityName === '' "
+                        matStepperNext type="submit">Suivant</button>
                 </div>
             </mat-step>
             <mat-step [editable]="false">
@@ -138,10 +138,12 @@
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Année de naissance</mat-label>
-                            <input matInput [(ngModel)]="personnalInformation.value.birthYear" formControlName="birthYear" [matDatepicker]="picker">
+                            <input matInput [(ngModel)]="personnalInformation.value.birthYear"
+                                formControlName="birthYear" [matDatepicker]="picker">
                             <mat-hint>YYYY</mat-hint>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event, picker)">
+                            <mat-datepicker #picker startView="multi-year"
+                                (yearSelected)="chosenYearHandler($event, picker)">
                             </mat-datepicker>
                         </mat-form-field>
                         <mat-form-field>
@@ -159,7 +161,7 @@
                     <button mat-raised-button color="primary"
                         [disabled]="personnalInformation.value.secondName == null || personnalInformation.value.firstName == null || personnalInformation.value.emailAddress == null|| personnalInformation.value.phoneNumber == null ||
                         personnalInformation.value.birthYear == null || personnalInformation.value.secondName == '' || personnalInformation.value.firstName == '' || personnalInformation.value.emailAddress == ''|| personnalInformation.value.phoneNumber == '' || personnalInformation.value.birthYear == '' "
-                        matStepperNext type="button" (click)="finalSendToApi()">Suivant</button>
+                        matStepperNext type="submit" (click)="finalSendToApi()">Suivant</button>
                 </div>
             </mat-step>
             <mat-step editable="false">
@@ -168,7 +170,23 @@
                     <h1>Lorem Ipsum</h1>
                     <p>Ajouter un message de remerciement?</p>
                 </div>
+                <script>
+                    !function (f, b, e, v, n, t, s) {
+                        if (f.fbq) return; n = f.fbq = function () {
+                            n.callMethod ?
+                            n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                        };
+                        if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+                        n.queue = []; t = b.createElement(e); t.async = !0;
+                        t.src = v; s = b.getElementsByTagName(e)[0];
+                        s.parentNode.insertBefore(t, s)
+                    }(window, document, 'script',
+                        'https://connect.facebook.net/en_US/fbevents.js');
+                    fbq('init', '4879267792189391');
+                </script>
+
             </mat-step>
+
         </mat-stepper>
         <span style="display: block;"> We Keep Status : {{ wekeep }}</span>
 
