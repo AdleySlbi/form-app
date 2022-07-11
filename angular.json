@@ -109,5 +109,7 @@
       }
     }
   },
-  "defaultProject": "form-app"
+  "cli": {
+    "analytics": false
+  }
 }
