@@ -7,7 +7,6 @@
                     <h1 class="title-q">Votre situation pour le calcul de vos économies : </h1>
                     <div class="answer-w">
                         <div class="one-answer">
-                            <!-- <img src="../../assets/" alt=""> -->
                             <input type="radio" value="house" id="q1a1" formControlName="dwellingType">
                             <label class="radio" for="q1a1" (click)="nextStep(stepper, 'dwelling')">
                                 <img src="../../assets/icons/house.png" alt="House image">
@@ -23,10 +22,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="stepper-next">
-                    <button mat-raised-button [disabled]="personnalInformation.value.dwellingType == ''" color="primary"
-                        (click)="weKeepPreCheckDwelling()" matStepperNext type="button">Suivant</button>
-                </div> -->
             </mat-step>
             <mat-step [editable]="false">
                 <ng-template matStepLabel>Situation</ng-template>
@@ -50,10 +45,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="stepper-next">
-                    <button mat-raised-button color="primary" (click)="weKeepPreCheckSitu()" matStepperNext
-                        [disabled]="personnalInformation.value.situationType == ''" type="button">Suivant</button>
-                </div> -->
             </mat-step>
             <mat-step [editable]="false">
                 <ng-template matStepLabel>Code Postal</ng-template>
@@ -129,34 +120,38 @@
                 <ng-template matStepLabel>Coordonnées</ng-template>
                 <div class="one-question">
                     <h1 class="title-q">Vos informations personnelles : </h1>
-                    <div class="answer-w">
-                        <mat-form-field>
-                            <mat-label>Prenom</mat-label>
-                            <input matInput type="text" formControlName="secondName" placeholder="Ex. Jean">
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>Nom</mat-label>
-                            <input matInput type="text" formControlName="firstName" placeholder="Ex. Dupont">
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>Année de naissance</mat-label>
-                            <input matInput [(ngModel)]="personnalInformation.value.birthYear"
-                                formControlName="birthYear" [matDatepicker]="picker">
-                            <mat-hint>YYYY</mat-hint>
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker startView="multi-year"
-                                (yearSelected)="chosenYearHandler($event, picker)">
-                            </mat-datepicker>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>Email</mat-label>
-                            <input matInput type="email" formControlName="emailAddress"
-                                placeholder="Ex. jean.dupont@xmail.fr">
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>Numéro de tel</mat-label>
-                            <input matInput type="tel" formControlName="phoneNumber" placeholder="">
-                        </mat-form-field>
+                    <div class="answer-w inf-perso-w">
+                        <div class="inf-perso">
+                            <mat-form-field class="three-fields">
+                                <mat-label>Prenom</mat-label>
+                                <input matInput type="text" formControlName="secondName" placeholder="Ex. Jean">
+                            </mat-form-field>
+                            <mat-form-field class="three-fields">
+                                <mat-label>Nom</mat-label>
+                                <input matInput type="text" formControlName="firstName" placeholder="Ex. Dupont">
+                            </mat-form-field>   
+                            <mat-form-field class="three-fields">
+                                <mat-label>Année de naissance</mat-label>
+                                <input matInput [(ngModel)]="personnalInformation.value.birthYear"
+                                    formControlName="birthYear" [matDatepicker]="picker">
+                                <mat-hint>YYYY</mat-hint>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker startView="multi-year"
+                                    (yearSelected)="chosenYearHandler($event, picker)">
+                                </mat-datepicker>
+                            </mat-form-field> 
+                        </div>
+                        <div class="inf-perso">
+                            <mat-form-field class="two-fields">
+                                <mat-label>Email</mat-label>
+                                <input matInput type="email" formControlName="emailAddress"
+                                    placeholder="Ex. jean.dupont@xmail.fr">
+                            </mat-form-field>
+                            <mat-form-field class="two-fields">
+                                <mat-label>Numéro de tel</mat-label>
+                                <input matInput type="tel" formControlName="phoneNumber" placeholder="">
+                            </mat-form-field>
+                        </div>
                     </div>
                 </div>
                 <div class="stepper-next">

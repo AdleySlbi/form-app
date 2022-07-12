@@ -82,5 +82,20 @@ input::-webkit-inner-spin-button {
                 }
             }
         }
+        .inf-perso-w {
+            flex-direction: column;
+            .inf-perso {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                width: 100%;
+                .three-fields {
+                    width: 30%;
+                }
+                .two-fields {
+                    width: 46%;
+                }
+            }
+        }
     }
 }

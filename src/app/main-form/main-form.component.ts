@@ -57,18 +57,6 @@ export class MainFormComponent implements OnInit {
     console.log(this.personnalInformation.value)
   }
 
-  weKeepPreCheckDwelling() {
-    if (this.personnalInformation.value.dwellingType == 'appartement') {
-      this.wekeep = false;
-    }
-  }
-
-  weKeepPreCheckSitu() {
-    if (this.personnalInformation.value.dwellingType == 'house' && this.personnalInformation.value.situationType == 'locataire') {
-      this.wekeep = false;
-    }
-  }
-
   // On Appartement, don't call the API WeKeep
   weKeepChange(status: boolean, stepper: MatStepper) {
     if (status == true) {
