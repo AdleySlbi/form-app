@@ -8,8 +8,7 @@ import { map } from 'rxjs/operators';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { IpServiceService } from '../services/ip-service.service';  
-
+import { IpServiceService } from '../services/ip-service.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -60,13 +59,13 @@ export class MainFormComponent implements OnInit {
     console.log(this.personnalInformation)
   }
 
-  getIP(){  
-    this.ip.getIPAddress().subscribe((res:any)=>{  
-      this.ipAddress=res.ip;
-    });  
-  } 
+  getIP() {
+    this.ip.getIPAddress().subscribe((res: any) => {
+      this.ipAddress = res.ip;
+    });
+  }
 
-  getDate(){
+  getDate() {
     var date = new Date;
     console.log(date)
     console.log(date.getDate())
@@ -88,19 +87,19 @@ export class MainFormComponent implements OnInit {
   }
 
   nextStep(stepper: MatStepper, step: String) {
-        
+
 
     setTimeout(() => {
       stepper.next()
       if (step == "dwelling") {
-      if (this.personnalInformation.value.dwellingType == 'appartement') {
-        this.wekeep = false;
+        if (this.personnalInformation.value.dwellingType == 'appartement') {
+          this.wekeep = false;
+        }
+      } else if (step == "situation") {
+        if (this.personnalInformation.value.dwellingType == 'house' && this.personnalInformation.value.situationType == 'locataire') {
+          this.wekeep = false;
+        }
       }
-    } else if (step == "situation") {
-      if (this.personnalInformation.value.dwellingType == 'house' && this.personnalInformation.value.situationType == 'locataire') {
-        this.wekeep = false;
-      }
-    }
     }, 1000);
 
   }
