@@ -59,7 +59,7 @@
                 </div>
                 <div class="stepper-next">
                     <button mat-raised-button color="primary" matStepperNext
-                        [disabled]="personnalInformation.value.zipCode.toString().length !== 5"
+                        [disabled]="personnalInformation.controls.zipCode.status == 'INVALID'"
                         type="submit">Suivant</button>
                 </div>
             </mat-step>
@@ -88,7 +88,8 @@
                 </div>
                 <div class="stepper-next">
                     <button mat-raised-button color="primary" matStepperNext
-                        [disabled]="personnalInformation.value.jobType == ''" type="submit">Suivant</button>
+                        [disabled]="
+                        personnalInformation.controls.jobType.status == 'INVALID'" type="submit">Suivant</button>
                 </div>
             </mat-step>
             <mat-step [editable]="false">
@@ -111,8 +112,7 @@
                 </div>
                 <div class="stepper-next">
                     <button mat-raised-button color="primary"
-                        [disabled]="personnalInformation.value.streetAddress === null || personnalInformation.value.cityName === null || personnalInformation.value.streetAddress === '' || personnalInformation.value.cityName === '' "
-                        matStepperNext type="submit">Suivant</button>
+                        [disabled]="personnalInformation.controls.streetAddress.status == 'INVALID' || personnalInformation.controls.cityName.status == 'INVALID'" matStepperNext type="submit">Suivant</button>
                 </div>
             </mat-step>
             <mat-step [editable]="false">
@@ -155,8 +155,7 @@
                 </div>
                 <div class="stepper-next">
                     <button mat-raised-button color="primary"
-                        [disabled]="personnalInformation.value.secondName == null || personnalInformation.value.firstName == null || personnalInformation.value.emailAddress == null|| personnalInformation.value.phoneNumber == null ||
-                        personnalInformation.value.birthYear == null || personnalInformation.value.secondName == '' || personnalInformation.value.firstName == '' || personnalInformation.value.emailAddress == ''|| personnalInformation.value.phoneNumber == '' || personnalInformation.value.birthYear == '' "
+                        [disabled]=" personnalInformation.controls.secondName.status == 'INVALID' || personnalInformation.controls.firstName.status == 'INVALID' || personnalInformation.controls.emailAddress.status == 'INVALID' || personnalInformation.controls.phoneNumber.status == 'INVALID' || personnalInformation.controls.birthYear.status == 'INVALID'"
                         matStepperNext type="submit" (click)="finalSendToApi()">Suivant</button>
                 </div>
             </mat-step>

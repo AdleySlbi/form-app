@@ -93,14 +93,14 @@ export class MainFormComponent implements OnInit {
   public personnalInformation = new UntypedFormGroup({
     dwellingType: new UntypedFormControl('', Validators.required),
     situationType: new UntypedFormControl('', Validators.required),
-    zipCode: new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]),
+    zipCode: new UntypedFormControl('', [Validators.required, Validators.min(10000), Validators.maxLength(99999)]),
     jobType: new UntypedFormControl('', [Validators.required]),
     streetAddress: new UntypedFormControl(null, [Validators.required, Validators.minLength(4)]),
     // streetNumber: new UntypedFormControl(null, Validators.required),
     cityName: new UntypedFormControl(null, [Validators.required, Validators.minLength(3)]),
     firstName: new UntypedFormControl(null, [Validators.required, Validators.minLength(2)]),
     secondName: new UntypedFormControl(null, [Validators.required, Validators.minLength(2)]),
-    birthYear: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
+    birthYear: new FormControl(null, [Validators.required, Validators.min(1900), Validators.max(2022)]),
     emailAddress: new UntypedFormControl(null, [Validators.required, Validators.email]),
     phoneNumber: new UntypedFormControl(null, [Validators.required, Validators.pattern('[- +()0-9]{10,}')])
   })
@@ -116,7 +116,6 @@ export class MainFormComponent implements OnInit {
 
   finalSendToApi() {
     let formInfo = this.personnalInformation.value;
-
     if (this.personnalInformation.value.dwellingType == "house" && this.wekeep == true) {
       console.log("API1")
 
