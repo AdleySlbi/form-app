@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { IpServiceService } from '../services/ip-service.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -39,22 +40,39 @@ export class MainFormComponent implements OnInit {
 
   stepperOrientation: Observable<StepperOrientation>;
 
-  constructor(private _formBuilder: UntypedFormBuilder, breakpointObserver: BreakpointObserver) {
+  constructor(private _formBuilder: UntypedFormBuilder, breakpointObserver: BreakpointObserver, private ip: IpServiceService) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 768px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
   }
 
-
+  public ipAddress: String | undefined;
 
   public wekeep: any = null;
 
   ngOnInit(): void {
-
+    this.getIP();
+    this.getDate();
   }
 
   test() {
     console.log(this.personnalInformation)
+  }
+
+  getIP() {
+    this.ip.getIPAddress().subscribe((res: any) => {
+      this.ipAddress = res.ip;
+    });
+  }
+
+  getDate() {
+    var date = new Date;
+    console.log(date)
+    console.log(date.getDate())
+    console.log(date.getMonth())
+    console.log(date.getFullYear())
+    console.log(date.getMinutes())
+    console.log(date.getHours())
   }
 
   // On Appartement, don't call the API WeKeep
@@ -69,19 +87,19 @@ export class MainFormComponent implements OnInit {
   }
 
   nextStep(stepper: MatStepper, step: String) {
-        
+
 
     setTimeout(() => {
       stepper.next()
       if (step == "dwelling") {
-      if (this.personnalInformation.value.dwellingType == 'appartement') {
-        this.wekeep = false;
+        if (this.personnalInformation.value.dwellingType == 'appartement') {
+          this.wekeep = false;
+        }
+      } else if (step == "situation") {
+        if (this.personnalInformation.value.dwellingType == 'house' && this.personnalInformation.value.situationType == 'locataire') {
+          this.wekeep = false;
+        }
       }
-    } else if (step == "situation") {
-      if (this.personnalInformation.value.dwellingType == 'house' && this.personnalInformation.value.situationType == 'locataire') {
-        this.wekeep = false;
-      }
-    }
     }, 1000);
 
   }
@@ -158,7 +176,7 @@ export class MainFormComponent implements OnInit {
         "cityName": formInfo.cityName,
         "propertyState": "",
         "revenueRange": "",
-        "ip": "{ip_address}", // Todo
+        "ip": this.ipAddress, // Todo
         "trafficSource": "{tf}", // Todo
         "subdomain": "solaire",
         "terms": "1",
