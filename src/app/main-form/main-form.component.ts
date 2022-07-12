@@ -54,7 +54,7 @@ export class MainFormComponent implements OnInit {
   }
 
   test() {
-    console.log(this.personnalInformation.value)
+    console.log(this.personnalInformation)
   }
 
   // On Appartement, don't call the API WeKeep
@@ -95,14 +95,14 @@ export class MainFormComponent implements OnInit {
     situationType: new UntypedFormControl('', Validators.required),
     zipCode: new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]),
     jobType: new UntypedFormControl('', [Validators.required]),
-    streetAddress: new UntypedFormControl(null, Validators.required),
-    streetNumber: new UntypedFormControl(null, Validators.required),
-    cityName: new UntypedFormControl(null, Validators.required),
-    firstName: new UntypedFormControl(null, Validators.required),
-    secondName: new UntypedFormControl(null, Validators.required),
-    birthYear: new FormControl(null, Validators.required),
+    streetAddress: new UntypedFormControl(null, [Validators.required, Validators.minLength(4)]),
+    // streetNumber: new UntypedFormControl(null, Validators.required),
+    cityName: new UntypedFormControl(null, [Validators.required, Validators.minLength(3)]),
+    firstName: new UntypedFormControl(null, [Validators.required, Validators.minLength(2)]),
+    secondName: new UntypedFormControl(null, [Validators.required, Validators.minLength(2)]),
+    birthYear: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
     emailAddress: new UntypedFormControl(null, [Validators.required, Validators.email]),
-    phoneNumber: new UntypedFormControl(null, Validators.required)
+    phoneNumber: new UntypedFormControl(null, [Validators.required, Validators.pattern('[- +()0-9]{10,}')])
   })
 
   chosenYearHandler(ev: any, input: any) {

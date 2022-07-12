@@ -38,7 +38,7 @@
                         </div>
                         <div class="one-answer">
                             <input type="radio" value="locataire" id="q2a2" formControlName="situationType">
-                            <label class="radio" for="q2a2" (click)="nextStep(stepper, 'situation')" >
+                            <label class="radio" for="q2a2" (click)="nextStep(stepper, 'situation')">
                                 <img src="../../assets/icons/tenant.png" alt="Hand and key image">
                                 <span>Locataire</span>
                             </label>
@@ -95,19 +95,18 @@
                 <ng-template matStepLabel>Adresse</ng-template>
                 <div class="one-question">
                     <h1 class="title-q">Quelle est votre adresse ? </h1>
-                    <div class="answer-w">
-                        <!-- <mat-form-field>
-                            <mat-label>Numéro de rue</mat-label>
-                            <input matInput type="number" formControlName="streetNumber" placeholder="Ex. 23">
-                        </mat-form-field> -->
-                        <mat-form-field>
-                            <mat-label>Rue</mat-label>
-                            <input matInput type="text" formControlName="streetAddress" placeholder="Rue de Mamba">
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>Ville</mat-label>
-                            <input matInput type="text" formControlName="cityName" placeholder="Ex. Paris">
-                        </mat-form-field>
+                    <div class="answer-w inf-perso-w">
+                        <div class="inf-perso">
+                            <mat-form-field class="two-fields">
+                                <mat-label>Rue</mat-label>
+                                <input matInput type="text" formControlName="streetAddress" placeholder="Rue de Mamba">
+                            </mat-form-field>
+                            <mat-form-field class="two-fields">
+                                <mat-label>Ville</mat-label>
+                                <input matInput type="text" formControlName="cityName" placeholder="Ex. Paris">
+                            </mat-form-field>
+                        </div>
+
                     </div>
                 </div>
                 <div class="stepper-next">
@@ -129,7 +128,7 @@
                             <mat-form-field class="three-fields">
                                 <mat-label>Nom</mat-label>
                                 <input matInput type="text" formControlName="firstName" placeholder="Ex. Dupont">
-                            </mat-form-field>   
+                            </mat-form-field>
                             <mat-form-field class="three-fields">
                                 <mat-label>Année de naissance</mat-label>
                                 <input matInput [(ngModel)]="personnalInformation.value.birthYear"
@@ -139,7 +138,7 @@
                                 <mat-datepicker #picker startView="multi-year"
                                     (yearSelected)="chosenYearHandler($event, picker)">
                                 </mat-datepicker>
-                            </mat-form-field> 
+                            </mat-form-field>
                         </div>
                         <div class="inf-perso">
                             <mat-form-field class="two-fields">
@@ -171,7 +170,7 @@
                     !function (f, b, e, v, n, t, s) {
                         if (f.fbq) return; n = f.fbq = function () {
                             n.callMethod ?
-                            n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
                         };
                         if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
                         n.queue = []; t = b.createElement(e); t.async = !0;
