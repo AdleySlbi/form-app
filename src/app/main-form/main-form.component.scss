@@ -5,12 +5,14 @@
     border: 1px solid #0000;
     border-radius: 5px;
     .title-q {
-        margin: 10px;
+        margin: 20px 0 10px 0;
         color: #4050b5;
+        text-align: center;
     }
     .answer-w {
         display: flex;
         flex-direction: column;
+        padding: 0 20px;
         .one-answer {
             .radio {
                 background-color: #eaeaea;
@@ -40,6 +42,9 @@
             // Design of the selected answer
             input[type=radio]:checked + .radio{
                 border-color: #4050b5;
+            }
+            .spin {
+                margin: 10px auto;
             }
         }
     }

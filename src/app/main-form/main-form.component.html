@@ -9,24 +9,24 @@
                         <div class="one-answer">
                             <!-- <img src="../../assets/" alt=""> -->
                             <input type="radio" value="house" id="q1a1" formControlName="dwellingType">
-                            <label class="radio" for="q1a1" (click)="nextStep(stepper)">
+                            <label class="radio" for="q1a1" (click)="nextStep(stepper, 'dwelling')">
                                 <img src="../../assets/icons/house.png" alt="House image">
                                 <span>Maison</span>
                             </label>
                         </div>
                         <div class="one-answer">
                             <input type="radio" value="appartement" id="q1a2" formControlName="dwellingType">
-                            <label class="radio" for="q1a2" (click)="nextStep(stepper)">
+                            <label class="radio" for="q1a2" (click)="nextStep(stepper, 'dwelling')">
                                 <img src="../../assets/icons/building.png" alt="Building image">
                                 <span>Appartement</span>
                             </label>
                         </div>
                     </div>
                 </div>
-                <div class="stepper-next">
+                <!-- <div class="stepper-next">
                     <button mat-raised-button [disabled]="personnalInformation.value.dwellingType == ''" color="primary"
                         (click)="weKeepPreCheckDwelling()" matStepperNext type="button">Suivant</button>
-                </div>
+                </div> -->
             </mat-step>
             <mat-step [editable]="false">
                 <ng-template matStepLabel>Situation</ng-template>
@@ -36,24 +36,24 @@
                         <div class="one-answer">
                             <!-- <img src="../../assets/" alt=""> -->
                             <input type="radio" value="proprietaire" id="q2a1" formControlName="situationType">
-                            <label class="radio" for="q2a1" (click)="nextStep(stepper)">
+                            <label class="radio" for="q2a1" (click)="nextStep(stepper, 'situation')">
                                 <img src="../../assets/icons/owner.png" alt="House image">
                                 <span>Propiétaire</span>
                             </label>
                         </div>
                         <div class="one-answer">
                             <input type="radio" value="locataire" id="q2a2" formControlName="situationType">
-                            <label class="radio" for="q2a2" (click)="nextStep(stepper)">
+                            <label class="radio" for="q2a2" (click)="nextStep(stepper, 'situation')" >
                                 <img src="../../assets/icons/tenant.png" alt="Hand and key image">
                                 <span>Locataire</span>
                             </label>
                         </div>
                     </div>
                 </div>
-                <div class="stepper-next">
+                <!-- <div class="stepper-next">
                     <button mat-raised-button color="primary" (click)="weKeepPreCheckSitu()" matStepperNext
                         [disabled]="personnalInformation.value.situationType == ''" type="button">Suivant</button>
-                </div>
+                </div> -->
             </mat-step>
             <mat-step [editable]="false">
                 <ng-template matStepLabel>Code Postal</ng-template>
@@ -74,7 +74,9 @@
             </mat-step>
             <mat-step *ngIf="wekeep == null">
                 <ng-template matStepLabel>Verification</ng-template>
-                <mat-spinner></mat-spinner>
+                <div class="one-answer">
+                    <mat-spinner class="spin"></mat-spinner>
+                </div>
             </mat-step>
             <mat-step [editable]="false">
                 <ng-template matStepLabel>Profession</ng-template>

@@ -80,11 +80,22 @@ export class MainFormComponent implements OnInit {
     }
   }
 
-  nextStep(stepper: MatStepper) {
-    setTimeout(function () {
-      // function code goes here
+  nextStep(stepper: MatStepper, step: String) {
+        
+
+    setTimeout(() => {
       stepper.next()
+      if (step == "dwelling") {
+      if (this.personnalInformation.value.dwellingType == 'appartement') {
+        this.wekeep = false;
+      }
+    } else if (step == "situation") {
+      if (this.personnalInformation.value.dwellingType == 'house' && this.personnalInformation.value.situationType == 'locataire') {
+        this.wekeep = false;
+      }
+    }
     }, 1000);
+
   }
 
 
