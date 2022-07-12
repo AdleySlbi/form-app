@@ -52,7 +52,8 @@ export class MainFormComponent implements OnInit {
   public wekeep: any = null;
 
   ngOnInit(): void {
-    this.getIP()
+    this.getIP();
+    this.getDate();
   }
 
   test() {
@@ -64,6 +65,16 @@ export class MainFormComponent implements OnInit {
       this.ipAddress=res.ip;
     });  
   } 
+
+  getDate(){
+    var date = new Date;
+    console.log(date)
+    console.log(date.getDate())
+    console.log(date.getMonth())
+    console.log(date.getFullYear())
+    console.log(date.getMinutes())
+    console.log(date.getHours())
+  }
 
   // On Appartement, don't call the API WeKeep
   weKeepChange(status: boolean, stepper: MatStepper) {
