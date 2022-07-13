@@ -37,6 +37,8 @@ export const MY_FORMATS = {
   ]
 })
 export class MainFormComponent implements OnInit {
+  public wekeep: any = null;
+  public leadDate: string = "";
   public ipAddress: String | undefined;
   public clickId: String | undefined;
   public tf: String | undefined;
@@ -65,7 +67,6 @@ export class MainFormComponent implements OnInit {
     })
   }
 
-  public wekeep: any = null;
 
   ngOnInit(): void {
     this.getIP();
@@ -91,7 +92,16 @@ export class MainFormComponent implements OnInit {
     console.log(date.getFullYear())
     console.log(date.getMinutes())
     console.log(date.getHours())
-    // var dateToPass 
+    var monthToPass;
+
+    if( date.getMonth() < 10){
+      monthToPass = `0${date.getMonth()}`
+    } else {
+      monthToPass = date.getMonth()
+    }
+
+    // console.log(`${date.getDate()}/${monthToPass}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`)
+    this.leadDate = `${date.getDate()}/${monthToPass}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
   }
 
   // On Appartement, don't call the API WeKeep
@@ -173,7 +183,7 @@ export class MainFormComponent implements OnInit {
         "phoneNumber": formInfo.phoneNumber,
         "emailAddress": formInfo.email,
         "offer": "PV",
-        // "date": ,
+        "date": this.leadDate,
         // "token": "{lead_token}",
         "origin": this.tf,
         "chauffage": "",
@@ -181,7 +191,10 @@ export class MainFormComponent implements OnInit {
         "birth_year": formInfo.birthYear
       };
       console.log(objectToSend)
-      // POST Request : https://script.google.com/macros/s/AKfycbzUoZGKsPk-crUwcMRniz-UnqbfJ9T5fMWUpW2Dl7F6W0ilDXAsAWpDCdG4daf5DxQguA/exec
+
+      this.dbOp.postApi1(objectToSend).subscribe(response => {
+        console.log(response)
+      })
 
     } else if (this.personnalInformation.value.dwellingType == "house" && this.wekeep == 0) {
       console.log("API2")
