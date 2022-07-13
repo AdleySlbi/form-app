@@ -10,6 +10,8 @@ import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/mat
 import { MatDatepicker } from '@angular/material/datepicker';
 import { IpServiceService } from '../services/ip-service.service';
 import { ActivatedRoute } from "@angular/router";
+import { DbOpService } from '../services/db-op.service';
+
 
 export const MY_FORMATS = {
   parse: {
@@ -45,7 +47,13 @@ export class MainFormComponent implements OnInit {
 
   stepperOrientation: Observable<StepperOrientation>;
 
-  constructor(private _formBuilder: UntypedFormBuilder, breakpointObserver: BreakpointObserver, private ip: IpServiceService, private route: ActivatedRoute) {
+  constructor(
+    private _formBuilder: UntypedFormBuilder, 
+    breakpointObserver: BreakpointObserver, 
+    private ip: IpServiceService, 
+    private route: ActivatedRoute,
+    private dbOp: DbOpService,
+    ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 768px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
@@ -87,15 +95,12 @@ export class MainFormComponent implements OnInit {
   }
 
   // On Appartement, don't call the API WeKeep
-  weKeepChange(status: boolean, stepper: MatStepper) {
-    this.wekeep = status
-    if (status == true) {
+  weKeepChange(status: number, stepper: MatStepper) {
+    if (status == 1) {
       stepper.next()
       stepper.next()
-      stepper.next()
-    } else {
-      stepper.next()
-    }
+      // stepper.next()
+    } 
   }
 
   nextStep(stepper: MatStepper, step: String) {
@@ -105,11 +110,11 @@ export class MainFormComponent implements OnInit {
       stepper.next()
       if (step == "dwelling") {
         if (this.personnalInformation.value.dwellingType == 'appartement') {
-          this.wekeep = false;
+          this.wekeep = 0;
         }
       } else if (step == "situation") {
         if (this.personnalInformation.value.dwellingType == 'house' && this.personnalInformation.value.situationType == 'locataire') {
-          this.wekeep = false;
+          this.wekeep = 0;
         }
       }
     }, 200);
@@ -123,7 +128,7 @@ export class MainFormComponent implements OnInit {
   public personnalInformation = new UntypedFormGroup({
     dwellingType: new UntypedFormControl('', Validators.required),
     situationType: new UntypedFormControl('', Validators.required),
-    zipCode: new UntypedFormControl('', [Validators.required, Validators.min(10000), Validators.maxLength(99999)]),
+    zipCode: new UntypedFormControl('', [Validators.required, Validators.max(99999), Validators.min(500) ]),
     jobType: new UntypedFormControl('', [Validators.required]),
     streetAddress: new UntypedFormControl('', [Validators.required, Validators.minLength(4)]),
     // streetNumber: new UntypedFormControl(null, Validators.required),
@@ -134,6 +139,7 @@ export class MainFormComponent implements OnInit {
     emailAddress: new UntypedFormControl(null, [Validators.required, Validators.email]),
     phoneNumber: new UntypedFormControl(null, [Validators.required, Validators.pattern('[- +()0-9]{10,}')])
   })
+
 
   chosenYearHandler(ev: any, input: any) {
     console.log(this.personnalInformation.value.birthYear)
@@ -147,7 +153,16 @@ export class MainFormComponent implements OnInit {
   finalSendToApi(stepper: MatStepper) {
     let formInfo = this.personnalInformation.value;
     stepper.next()
-    if (this.personnalInformation.value.dwellingType == 'house' && this.wekeep == true && this.personnalInformation.controls.secondName.status == 'VALID' && this.personnalInformation.controls.firstName.status == 'VALID' && this.personnalInformation.controls.emailAddress.status == 'VALID' && this.personnalInformation.controls.phoneNumber.status == 'VALID' && this.personnalInformation.controls.birthYear.status == 'VALID' ) {
+
+    if(formInfo.dwellingType == 'house' && formInfo.situationType == "proprietaire" && formInfo.zipCode != null){
+      this.dbOp.getWeKeep(formInfo.zipCode)
+        .subscribe(data => {
+          this.wekeep = data.we_keep;
+          this.weKeepChange(data.we_keep, stepper)
+      })
+    }
+
+    if (this.personnalInformation.value.dwellingType == 'house' && this.wekeep == 1 && this.personnalInformation.controls.secondName.status == 'VALID' && this.personnalInformation.controls.firstName.status == 'VALID' && this.personnalInformation.controls.emailAddress.status == 'VALID' && this.personnalInformation.controls.phoneNumber.status == 'VALID' && this.personnalInformation.controls.birthYear.status == 'VALID' ) {
       console.log("API1")
       let objectToSend = {
         "situationType": formInfo.situationType,
@@ -168,7 +183,7 @@ export class MainFormComponent implements OnInit {
       console.log(objectToSend)
       // POST Request : https://script.google.com/macros/s/AKfycbzUoZGKsPk-crUwcMRniz-UnqbfJ9T5fMWUpW2Dl7F6W0ilDXAsAWpDCdG4daf5DxQguA/exec
 
-    } else if (this.personnalInformation.value.dwellingType == "house" && this.wekeep == false) {
+    } else if (this.personnalInformation.value.dwellingType == "house" && this.wekeep == 0) {
       console.log("API2")
       let objectToSend = {
         "originDomain": "panneau-solaire.affiliate.com",

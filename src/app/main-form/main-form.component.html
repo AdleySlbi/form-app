@@ -63,7 +63,7 @@
                         type="submit">Suivant</button>
                 </div>
             </mat-step>
-            <mat-step>
+            <mat-step *ngIf="wekeep == null">
                 <ng-template matStepLabel>Verification</ng-template>
                 <div class="one-answer">
                     <mat-spinner class="spin"></mat-spinner>
@@ -172,8 +172,8 @@
         </mat-stepper>
         <span style="display: block;"> We Keep Status : {{ wekeep }}</span>
 
-        <button type="button" (click)="weKeepChange(true, stepper)">True</button>
-        <button type="button" (click)="weKeepChange(false, stepper)">False</button>
+        <!-- <button type="button" (click)="weKeepChange(true, stepper)">True</button>
+        <button type="button" (click)="weKeepChange(false, stepper)">False</button> -->
         <button type="button" (click)="test()">Données</button>
     </form>
 </section>
