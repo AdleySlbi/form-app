@@ -41,7 +41,7 @@ export class MainFormComponent implements OnInit {
   public leadDate: string = "";
   public tokenLead: string = "";
   public ipAddress: String | undefined;
-  public clickId: String | undefined;
+  public clickId: String= "";
   public tf: String | undefined;
   public lander: String | undefined;
 
@@ -62,7 +62,7 @@ export class MainFormComponent implements OnInit {
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
 
     this.route.queryParams.subscribe(data => {
-      this.clickId = data.clickId;
+      this.clickId = data.clickid;
       this.tf = data.tf;
       this.lander = data.lander;
     })
@@ -205,6 +205,10 @@ export class MainFormComponent implements OnInit {
       console.log(objectToSend)
 
       this.dbOp.postApi1(objectToSend).subscribe(response => {
+        console.log(response)
+      })
+
+      this.dbOp.postCid(this.clickId).subscribe(response => {
         console.log(response)
       })
 
