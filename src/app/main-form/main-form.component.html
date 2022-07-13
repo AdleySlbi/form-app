@@ -1,6 +1,6 @@
 <section>
-    <form [formGroup]="personnalInformation">
-        <mat-stepper linear #stepper>
+    <form [formGroup]="personnalInformation" (ngSubmit)="finalSendToApi(stepper)">
+        <mat-stepper [linear]="false" #stepper>
             <mat-step [editable]="false">
                 <ng-template matStepLabel>Logement</ng-template>
                 <div class="one-question">
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="stepper-next">
-                    <button mat-raised-button color="primary" matStepperNext
+                    <button mat-raised-button color="primary"
                         [disabled]="personnalInformation.controls.zipCode.status == 'INVALID'"
                         type="submit">Suivant</button>
                 </div>
@@ -66,7 +66,7 @@
             <mat-step *ngIf="wekeep == null">
                 <ng-template matStepLabel>Verification</ng-template>
                 <div class="one-answer">
-                    <mat-spinner class="spin"></mat-spinner>
+                    <mat-spinner *ngIf="wekeep == null" class="spin"></mat-spinner>
                 </div>
             </mat-step>
             <mat-step [editable]="false">
@@ -87,8 +87,7 @@
                     </div>
                 </div>
                 <div class="stepper-next">
-                    <button mat-raised-button color="primary" matStepperNext
-                        [disabled]="
+                    <button mat-raised-button color="primary" [disabled]="
                         personnalInformation.controls.jobType.status == 'INVALID'" type="submit">Suivant</button>
                 </div>
             </mat-step>
@@ -112,7 +111,8 @@
                 </div>
                 <div class="stepper-next">
                     <button mat-raised-button color="primary"
-                        [disabled]="personnalInformation.controls.streetAddress.status == 'INVALID' || personnalInformation.controls.cityName.status == 'INVALID'" matStepperNext type="submit">Suivant</button>
+                        [disabled]="personnalInformation.controls.streetAddress.status == 'INVALID' || personnalInformation.controls.cityName.status == 'INVALID'"
+                        type="submit">Suivant</button>
                 </div>
             </mat-step>
             <mat-step [editable]="false">
@@ -154,13 +154,15 @@
                     </div>
                 </div>
                 <div class="stepper-next">
-                    <button mat-raised-button color="primary"
+                    <button mat-raised-button matStepperNext color="primary"
                         [disabled]=" personnalInformation.controls.secondName.status == 'INVALID' || personnalInformation.controls.firstName.status == 'INVALID' || personnalInformation.controls.emailAddress.status == 'INVALID' || personnalInformation.controls.phoneNumber.status == 'INVALID' || personnalInformation.controls.birthYear.status == 'INVALID'"
-                        matStepperNext type="submit" (click)="finalSendToApi()">Suivant</button>
+                        type="submit">
+                        Suivant
+                    </button>
                 </div>
             </mat-step>
-            <mat-step editable="false">
-                <ng-template matStepLabel>Coordonnées</ng-template>
+            <mat-step [editable]="false">
+                <ng-template matStepLabel>Remerciement</ng-template>
                 <div class="one-question">
                     <h1>Lorem Ipsum</h1>
                     <p>Ajouter un message de remerciement?</p>

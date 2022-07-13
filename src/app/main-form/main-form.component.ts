@@ -9,6 +9,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { IpServiceService } from '../services/ip-service.service';
+import { ActivatedRoute } from "@angular/router";
 
 export const MY_FORMATS = {
   parse: {
@@ -34,19 +35,27 @@ export const MY_FORMATS = {
   ]
 })
 export class MainFormComponent implements OnInit {
+  public ipAddress: String | undefined;
+  public clickId: String | undefined;
+  public tf: String | undefined;
+  public lander: String | undefined;
 
   @ViewChild('picker', { static: false })
   private picker!: MatDatepicker<Date>;
 
   stepperOrientation: Observable<StepperOrientation>;
 
-  constructor(private _formBuilder: UntypedFormBuilder, breakpointObserver: BreakpointObserver, private ip: IpServiceService) {
+  constructor(private _formBuilder: UntypedFormBuilder, breakpointObserver: BreakpointObserver, private ip: IpServiceService, private route: ActivatedRoute) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 768px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
-  }
 
-  public ipAddress: String | undefined;
+    this.route.queryParams.subscribe(data => {
+      this.clickId = data.clickId;
+      this.tf = data.tf;
+      this.lander = data.lander;
+    })
+  }
 
   public wekeep: any = null;
 
@@ -57,6 +66,7 @@ export class MainFormComponent implements OnInit {
 
   test() {
     console.log(this.personnalInformation)
+    console.log(this.wekeep)
   }
 
   getIP() {
@@ -73,14 +83,16 @@ export class MainFormComponent implements OnInit {
     console.log(date.getFullYear())
     console.log(date.getMinutes())
     console.log(date.getHours())
+    // var dateToPass 
   }
 
   // On Appartement, don't call the API WeKeep
   weKeepChange(status: boolean, stepper: MatStepper) {
+    this.wekeep = status
     if (status == true) {
       stepper.next()
       stepper.next()
-      stepper.next()
+      // stepper.next()
     } else {
       stepper.next()
     }
@@ -100,7 +112,7 @@ export class MainFormComponent implements OnInit {
           this.wekeep = false;
         }
       }
-    }, 1000);
+    }, 200);
 
   }
 
@@ -113,9 +125,9 @@ export class MainFormComponent implements OnInit {
     situationType: new UntypedFormControl('', Validators.required),
     zipCode: new UntypedFormControl('', [Validators.required, Validators.min(10000), Validators.maxLength(99999)]),
     jobType: new UntypedFormControl('', [Validators.required]),
-    streetAddress: new UntypedFormControl(null, [Validators.required, Validators.minLength(4)]),
+    streetAddress: new UntypedFormControl('', [Validators.required, Validators.minLength(4)]),
     // streetNumber: new UntypedFormControl(null, Validators.required),
-    cityName: new UntypedFormControl(null, [Validators.required, Validators.minLength(3)]),
+    cityName: new UntypedFormControl('', [Validators.required, Validators.minLength(3)]),
     firstName: new UntypedFormControl(null, [Validators.required, Validators.minLength(2)]),
     secondName: new UntypedFormControl(null, [Validators.required, Validators.minLength(2)]),
     birthYear: new FormControl(null, [Validators.required, Validators.min(1900), Validators.max(2022)]),
@@ -132,11 +144,11 @@ export class MainFormComponent implements OnInit {
     this.picker.close()
   }
 
-  finalSendToApi() {
+  finalSendToApi(stepper: MatStepper) {
     let formInfo = this.personnalInformation.value;
-    if (this.personnalInformation.value.dwellingType == "house" && this.wekeep == true) {
+    stepper.next()
+    if (this.personnalInformation.value.dwellingType == 'house' && this.wekeep == true && this.personnalInformation.controls.secondName.status == 'VALID' && this.personnalInformation.controls.firstName.status == 'VALID' && this.personnalInformation.controls.emailAddress.status == 'VALID' && this.personnalInformation.controls.phoneNumber.status == 'VALID' && this.personnalInformation.controls.birthYear.status == 'VALID' ) {
       console.log("API1")
-
       let objectToSend = {
         "situationType": formInfo.situationType,
         "dwellingType": formInfo.dwellingType,
@@ -148,12 +160,11 @@ export class MainFormComponent implements OnInit {
         "offer": "PV",
         // "date": ,
         // "token": "{lead_token}",
-        // "origin": "{tf}",
+        "origin": this.tf,
         "chauffage": "",
-        // "lander": "{lander}",
+        "lander": this.lander,
         "birth_year": formInfo.birthYear
       };
-
       console.log(objectToSend)
       // POST Request : https://script.google.com/macros/s/AKfycbzUoZGKsPk-crUwcMRniz-UnqbfJ9T5fMWUpW2Dl7F6W0ilDXAsAWpDCdG4daf5DxQguA/exec
 
@@ -177,7 +188,7 @@ export class MainFormComponent implements OnInit {
         "propertyState": "",
         "revenueRange": "",
         "ip": this.ipAddress, // Todo
-        "trafficSource": "{tf}", // Todo
+        "trafficSource": this.tf, // Todo
         "subdomain": "solaire",
         "terms": "1",
         "bases": "1",
