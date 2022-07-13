@@ -63,10 +63,10 @@
                         type="submit">Suivant</button>
                 </div>
             </mat-step>
-            <mat-step *ngIf="wekeep == null">
+            <mat-step>
                 <ng-template matStepLabel>Verification</ng-template>
                 <div class="one-answer">
-                    <mat-spinner *ngIf="wekeep == null" class="spin"></mat-spinner>
+                    <mat-spinner class="spin"></mat-spinner>
                 </div>
             </mat-step>
             <mat-step [editable]="false">

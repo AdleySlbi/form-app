@@ -92,7 +92,7 @@ export class MainFormComponent implements OnInit {
     if (status == true) {
       stepper.next()
       stepper.next()
-      // stepper.next()
+      stepper.next()
     } else {
       stepper.next()
     }

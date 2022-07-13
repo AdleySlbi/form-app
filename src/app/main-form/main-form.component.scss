@@ -43,9 +43,6 @@
             input[type=radio]:checked + .radio{
                 border-color: #4050b5;
             }
-            .spin {
-                margin: 10px auto;
-            }
         }
     }
     .inf-perso-w {
@@ -53,6 +50,10 @@
             width: 100%;
         }
     }
+}
+
+.spin {
+    margin: 10px auto;
 }
 
 .stepper-next {
