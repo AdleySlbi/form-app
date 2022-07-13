@@ -11,6 +11,8 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import { IpServiceService } from '../services/ip-service.service';
 import { ActivatedRoute } from "@angular/router";
 import { DbOpService } from '../services/db-op.service';
+import { Router, NavigationEnd } from '@angular/router';
+declare let fbq: Function;
 
 
 export const MY_FORMATS = {
@@ -41,7 +43,7 @@ export class MainFormComponent implements OnInit {
   public leadDate: string = "";
   public tokenLead: string = "";
   public ipAddress: String | undefined;
-  public clickId: String= "";
+  public clickId: String = "";
   public tf: String | undefined;
   public lander: String | undefined;
 
@@ -56,6 +58,7 @@ export class MainFormComponent implements OnInit {
     private ip: IpServiceService,
     private route: ActivatedRoute,
     private dbOp: DbOpService,
+    private router: Router,
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 768px)')
@@ -88,21 +91,12 @@ export class MainFormComponent implements OnInit {
 
   getDate() {
     var date = new Date;
-    console.log(date)
-    console.log(date.getDate())
-    console.log(date.getMonth())
-    console.log(date.getFullYear())
-    console.log(date.getMinutes())
-    console.log(date.getHours())
     var monthToPass;
-
     if (date.getMonth() < 10) {
       monthToPass = `0${date.getMonth()}`
     } else {
       monthToPass = date.getMonth()
     }
-
-    // console.log(`${date.getDate()}/${monthToPass}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`)
     this.leadDate = `${date.getDate()}/${monthToPass}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
   }
 
@@ -210,6 +204,12 @@ export class MainFormComponent implements OnInit {
 
       this.dbOp.postCid(this.clickId).subscribe(response => {
         console.log(response)
+      })
+
+      this.router.events.subscribe((y: NavigationEnd | any) => {
+        if (y instanceof NavigationEnd) {
+          fbq('track', 'Lead');
+        }
       })
 
     } else if (this.personnalInformation.value.dwellingType == "house" && this.wekeep == 0 && this.personnalInformation.controls.zipCode.status == 'VALID' && this.personnalInformation.controls.jobType.status == 'VALID' && this.personnalInformation.controls.streetAddress.status == 'VALID' && this.personnalInformation.controls.cityName.status == 'VALID' && this.personnalInformation.controls.secondName.status == 'VALID' && this.personnalInformation.controls.firstName.status == 'VALID' && this.personnalInformation.controls.emailAddress.status == 'VALID' && this.personnalInformation.controls.phoneNumber.status == 'VALID' && this.personnalInformation.controls.birthYear.status == 'VALID') {
