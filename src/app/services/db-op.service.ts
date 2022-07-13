@@ -17,4 +17,8 @@ export class DbOpService {
   postApi1(data: any): Observable<any>{
     return this.http.post(`https://script.google.com/macros/s/AKfycbzUoZGKsPk-crUwcMRniz-UnqbfJ9T5fMWUpW2Dl7F6W0ilDXAsAWpDCdG4daf5DxQguA/exec`, data)
   }
+
+  postApi2(data: any): Observable<any>{
+    return this.http.post(`https://ios14club.herokuapp.com/offers/1/webhook`, data)
+  }
 }
