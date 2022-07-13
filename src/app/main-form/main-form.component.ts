@@ -128,7 +128,7 @@ export class MainFormComponent implements OnInit {
   public personnalInformation = new UntypedFormGroup({
     dwellingType: new UntypedFormControl('', Validators.required),
     situationType: new UntypedFormControl('', Validators.required),
-    zipCode: new UntypedFormControl('', [Validators.required, Validators.max(99999), Validators.min(500) ]),
+    zipCode: new UntypedFormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(5), Validators.maxLength(5)]),
     jobType: new UntypedFormControl('', [Validators.required]),
     streetAddress: new UntypedFormControl('', [Validators.required, Validators.minLength(4)]),
     // streetNumber: new UntypedFormControl(null, Validators.required),
@@ -155,7 +155,7 @@ export class MainFormComponent implements OnInit {
     stepper.next()
 
     if(formInfo.dwellingType == 'house' && formInfo.situationType == "proprietaire" && formInfo.zipCode != null){
-      this.dbOp.getWeKeep(formInfo.zipCode)
+      this.dbOp.getWeKeep(formInfo.zipCode.slice(0,2))
         .subscribe(data => {
           this.wekeep = data.we_keep;
           this.weKeepChange(data.we_keep, stepper)

@@ -53,7 +53,7 @@
                     <div class="answer-w">
                         <mat-form-field style="width: 100%;">
                             <mat-label>Code Postal</mat-label>
-                            <input matInput type="number" formControlName="zipCode" placeholder="Ex. 94121">
+                            <input matInput type="text" [(ngModel)]="personnalInformation.value.zipCode" formControlName="zipCode" placeholder="Ex. 94121">
                         </mat-form-field>
                     </div>
                 </div>
