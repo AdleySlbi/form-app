@@ -63,9 +63,9 @@
                         type="submit">Suivant</button>
                 </div>
             </mat-step>
-            <mat-step *ngIf="wekeep == null">
+            <mat-step *ngIf="wekeep != 0">
                 <ng-template matStepLabel>Verification</ng-template>
-                <div class="one-answer">
+                <div class="one-answer" [ngStyle]="{'display': wekeep != null ? 'none' : 'block'}">
                     <mat-spinner class="spin"></mat-spinner>
                 </div>
             </mat-step>
@@ -132,7 +132,7 @@
                             <mat-form-field class="three-fields">
                                 <mat-label>Année de naissance</mat-label>
                                 <input matInput [(ngModel)]="personnalInformation.value.birthYear"
-                                    formControlName="birthYear" [matDatepicker]="picker">
+                                    formControlName="birthYear" [max]="maxDate" [matDatepicker]="picker">
                                 <mat-hint>YYYY</mat-hint>
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker startView="multi-year"
@@ -163,9 +163,10 @@
             </mat-step>
             <mat-step [editable]="false">
                 <ng-template matStepLabel>Remerciement</ng-template>
-                <div class="one-question">
-                    <h1>Lorem Ipsum</h1>
-                    <p>Ajouter un message de remerciement?</p>
+                <div class="one-question end-step">
+                    <h1>Votre demande a été reçue avec succès!</h1>
+                    <p>Vous serez <b>contacté par téléphone</b> très prochainement par un conseiller agrée qui réalisera avec vous votre étude de votre toit pour la poste d'un système solaire et le calcul de vos économies.
+                    </p>
                 </div>
             </mat-step>
 

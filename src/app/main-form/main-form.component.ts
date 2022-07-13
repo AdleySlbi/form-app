@@ -46,6 +46,7 @@ export class MainFormComponent implements OnInit {
   public clickId: String = "";
   public tf: String | undefined;
   public lander: String | undefined;
+  public maxDate: Date = new Date;
 
   @ViewChild('picker', { static: false })
   private picker!: MatDatepicker<Date>;
@@ -115,13 +116,11 @@ export class MainFormComponent implements OnInit {
     if (status == 1) {
       stepper.next()
       stepper.next()
-      // stepper.next()
+      stepper.next()
     }
   }
 
   nextStep(stepper: MatStepper, step: String) {
-
-
     setTimeout(() => {
       stepper.next()
       if (step == "dwelling") {
@@ -152,7 +151,7 @@ export class MainFormComponent implements OnInit {
     firstName: new UntypedFormControl(null, [Validators.required, Validators.minLength(2)]),
     secondName: new UntypedFormControl(null, [Validators.required, Validators.minLength(2)]),
     birthYear: new FormControl(null, [Validators.required, Validators.min(1900), Validators.max(2022)]),
-    emailAddress: new UntypedFormControl(null, [Validators.required, Validators.email]),
+    emailAddress: new UntypedFormControl(null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
     phoneNumber: new UntypedFormControl(null, [Validators.required, Validators.pattern('[- +()0-9]{10,}'), Validators.max(999999999)])
   })
 
@@ -161,7 +160,6 @@ export class MainFormComponent implements OnInit {
     console.log(this.personnalInformation.value.birthYear)
     let { _d } = ev._i.year;
     this.personnalInformation.value.birthYear = String(ev._i.year);
-    // input._destroyPopup()
     console.log(this.personnalInformation.value.birthYear)
     this.picker.close()
   }
