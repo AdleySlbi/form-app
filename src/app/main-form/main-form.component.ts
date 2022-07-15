@@ -202,14 +202,14 @@ export class MainFormComponent implements OnInit {
 
       this.dbOp.postCid(this.clickId).subscribe(response => {
         console.log(response)
-      })
+      });
 
-      this.router.events.subscribe((y: NavigationEnd | any) => {
-        if (y instanceof NavigationEnd) {
-          fbq('track', 'Lead');
-        }
-      })
-
+      fbq('track', 'Lead', {
+        content_name: '{_c_dt}',
+        content_category: '{_c_node}',
+        value: 28,
+        currency: 'EUR'
+      });
     } else if (this.personnalInformation.value.dwellingType == "house" && this.wekeep == 0 && this.personnalInformation.controls.zipCode.status == 'VALID' && this.personnalInformation.controls.jobType.status == 'VALID' && this.personnalInformation.controls.streetAddress.status == 'VALID' && this.personnalInformation.controls.cityName.status == 'VALID' && this.personnalInformation.controls.secondName.status == 'VALID' && this.personnalInformation.controls.firstName.status == 'VALID' && this.personnalInformation.controls.emailAddress.status == 'VALID' && this.personnalInformation.controls.phoneNumber.status == 'VALID' && this.personnalInformation.controls.birthYear.status == 'VALID') {
       console.log("API2")
       let objectToSend = {
@@ -221,7 +221,7 @@ export class MainFormComponent implements OnInit {
         "dwellingType": "Maison",
         "situationType": "Propriétaire",
         "jobType": formInfo.jobType,
-        "birthYear": formInfo.birthYear,
+        "birthYear": formInfo.birthYear._i,
         "emailAddress": formInfo.emailAddress,
         "phoneNumber": formInfo.phoneNumber,
         "streetAddress": formInfo.streetAddress,
