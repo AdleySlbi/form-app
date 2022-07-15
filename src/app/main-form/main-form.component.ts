@@ -79,11 +79,6 @@ export class MainFormComponent implements OnInit {
     this.getToken();
   }
 
-  test() {
-    console.log(this.personnalInformation)
-    console.log(this.wekeep)
-  }
-
   getIP() {
     this.ip.getIPAddress().subscribe((res: any) => {
       this.ipAddress = res.ip;
@@ -107,11 +102,10 @@ export class MainFormComponent implements OnInit {
     var result = "";
     for (var i = 0; i < anysize; i++)
       result += charset[Math.floor(Math.random() * charset.length)];
-    console.log(result);
+    // console.log(result);
     return this.tokenLead = result;
   }
 
-  // On Appartement, don't call the API WeKeep
   weKeepChange(status: number, stepper: MatStepper) {
     if (status == 1) {
       stepper.next()
@@ -138,15 +132,13 @@ export class MainFormComponent implements OnInit {
 
 
 
-  // If houseInformation.livingType = house 
-  // Check if we_keep == 0 
+
   public personnalInformation = new UntypedFormGroup({
     dwellingType: new UntypedFormControl('', Validators.required),
     situationType: new UntypedFormControl('', Validators.required),
     zipCode: new UntypedFormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(5), Validators.maxLength(5)]),
     jobType: new UntypedFormControl('', [Validators.required]),
     streetAddress: new UntypedFormControl('', [Validators.required, Validators.minLength(4)]),
-    // streetNumber: new UntypedFormControl(null, Validators.required),
     cityName: new UntypedFormControl('', [Validators.required, Validators.minLength(3)]),
     firstName: new UntypedFormControl(null, [Validators.required, Validators.minLength(2)]),
     secondName: new UntypedFormControl(null, [Validators.required, Validators.minLength(2)]),
@@ -157,10 +149,8 @@ export class MainFormComponent implements OnInit {
 
 
   chosenYearHandler(ev: any, input: any) {
-    console.log(this.personnalInformation.value.birthYear)
     let { _d } = ev._i.year;
     this.personnalInformation.value.birthYear = String(ev._i.year);
-    console.log(this.personnalInformation.value.birthYear)
     this.picker.close()
   }
 
@@ -177,7 +167,6 @@ export class MainFormComponent implements OnInit {
     }
 
     if (this.personnalInformation.value.dwellingType == 'house' && this.wekeep == 1 && this.personnalInformation.controls.secondName.status == 'VALID' && this.personnalInformation.controls.firstName.status == 'VALID' && this.personnalInformation.controls.emailAddress.status == 'VALID' && this.personnalInformation.controls.phoneNumber.status == 'VALID' && this.personnalInformation.controls.birthYear.status == 'VALID') {
-      console.log("API1")
       let objectToSend = {
         "situationType": formInfo.situationType,
         "dwellingType": formInfo.dwellingType,
@@ -194,14 +183,13 @@ export class MainFormComponent implements OnInit {
         "lander": this.lander,
         "birth_year": formInfo.birthYear._i
       };
-      console.log(objectToSend)
-
+      
       this.dbOp.postApi1(objectToSend).subscribe(response => {
-        console.log(response)
+        // console.log(response)
       })
 
       this.dbOp.postCid(this.clickId).subscribe(response => {
-        console.log(response)
+        // console.log(response)
       });
 
       fbq('track', 'Lead', {
@@ -211,7 +199,7 @@ export class MainFormComponent implements OnInit {
         currency: 'EUR'
       });
     } else if (this.personnalInformation.value.dwellingType == "house" && this.wekeep == 0 && this.personnalInformation.controls.zipCode.status == 'VALID' && this.personnalInformation.controls.jobType.status == 'VALID' && this.personnalInformation.controls.streetAddress.status == 'VALID' && this.personnalInformation.controls.cityName.status == 'VALID' && this.personnalInformation.controls.secondName.status == 'VALID' && this.personnalInformation.controls.firstName.status == 'VALID' && this.personnalInformation.controls.emailAddress.status == 'VALID' && this.personnalInformation.controls.phoneNumber.status == 'VALID' && this.personnalInformation.controls.birthYear.status == 'VALID') {
-      console.log("API2")
+      // console.log("API2")
       let objectToSend = {
         "originDomain": "panneau-solaire.affiliate.com",
         "leadBy": "jeremy",
@@ -237,12 +225,12 @@ export class MainFormComponent implements OnInit {
         "apidl": "1",
         "apilf": "1"
       };
-      console.log(objectToSend)
+      // console.log(objectToSend)
       this.dbOp.postApi2(objectToSend).subscribe(response => {
-        console.log(response)
+        // console.log(response)
       })
     } else if (this.personnalInformation.value.dwellingType == "appartement") {
-      console.log("API3");
+      // console.log("API3");
       // A definir
     }
   }
