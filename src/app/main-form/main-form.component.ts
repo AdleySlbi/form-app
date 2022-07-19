@@ -183,7 +183,7 @@ export class MainFormComponent implements OnInit {
         "lander": this.lander,
         "birth_year": formInfo.birthYear._i
       };
-      
+
       this.dbOp.postApi1(objectToSend).subscribe(response => {
         // console.log(response)
       })
@@ -200,7 +200,7 @@ export class MainFormComponent implements OnInit {
       });
     } else if (this.personnalInformation.value.dwellingType == "house" && this.wekeep == 0 && this.personnalInformation.controls.zipCode.status == 'VALID' && this.personnalInformation.controls.jobType.status == 'VALID' && this.personnalInformation.controls.streetAddress.status == 'VALID' && this.personnalInformation.controls.cityName.status == 'VALID' && this.personnalInformation.controls.secondName.status == 'VALID' && this.personnalInformation.controls.firstName.status == 'VALID' && this.personnalInformation.controls.emailAddress.status == 'VALID' && this.personnalInformation.controls.phoneNumber.status == 'VALID' && this.personnalInformation.controls.birthYear.status == 'VALID') {
       // console.log("API2")
-      let objectToSend = {
+      let objectToSend = JSON.stringify({
         "originDomain": "panneau-solaire.affiliate.com",
         "leadBy": "jeremy",
         "offer": "SOLAR",
@@ -224,11 +224,25 @@ export class MainFormComponent implements OnInit {
         "bases": "1",
         "apidl": "1",
         "apilf": "1"
-      };
+      });
       // console.log(objectToSend)
-      this.dbOp.postApi2(objectToSend).subscribe(response => {
-        // console.log(response)
-      })
+      // this.dbOp.postApi2(objectToSend).subscribe(response => {
+      //   console.log(response)
+      // })
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      var requestOptions: any = {
+        method: 'POST',
+        headers: myHeaders,
+        body: objectToSend,
+        redirect: 'follow'
+      };
+
+      fetch("https://ios14club.herokuapp.com/offers/1/webhook", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
     } else if (this.personnalInformation.value.dwellingType == "appartement") {
       // console.log("API3");
       // A definir

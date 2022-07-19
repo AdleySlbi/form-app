@@ -31,9 +31,13 @@ export class DbOpService {
   }
 
   postApi2(data: any): Observable<any> {
-    return this.http.post(`https://ios14club.herokuapp.com/offers/1/webhook`, data, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+    console.log(data)
+    return this.http.post(`https://ios14club.herokuapp.com/offers/1/webhook`, data, { headers: {
+        // "Content-Type": "text/html; charset=UTF-8",
+        // "Content-Type": "text/plain",
+        "Content-Type": "application/json"
+        // "Content-Type": "application/x-www-form-urlencoded",
+        // "Content-Type": "multipart/form-data",
       },
     })
   }
